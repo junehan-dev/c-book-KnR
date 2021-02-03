@@ -42,15 +42,19 @@ Book Chapters
 -------------
 
 - Chapter 1: **Tutorial on the central part of the C.**
+
    - Purpose is to Get the Reader Started as quickly as possible, since we believe strongly that the way to learn a new language is to write programs in it.
 
 - Chapter 2: **Through 6 discusses various aspects of C in more detail, and rather more formally.**
+
    - Deals with the basic data types, operators and expressions.
 
 - Chapter 3: **Treates control flow.**
+
    - ``if-else, switch, while, for,`` etc.
 
 - Chapter 4: **Covers functions and program structure.**
+
    - External variables, scope rules, multiple source files, and so on.
    - Also youches on the *preprocessor.*
 
@@ -59,7 +63,9 @@ Book Chapters
 - Chapter 6: **Covers Structures and unions.**
 
 - Chapter 7: **Describes the Stanard library, provides a common interface to the operation system.**
+
    - This library is defined by the ANSI standard and is meant to be supported on all machines that support C.
 
 - Chapter 8: **Describes an interface between C programs and UNIX operating system.**
+
    - Concentrates on input/output, file system, and storage allocation.
