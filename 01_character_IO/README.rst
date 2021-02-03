@@ -65,8 +65,9 @@ The parameter ``n`` is used as temporary variable.
 1.9-Character_Arrays
 --------------------
 
-get_line_SOURCE_CODE_
-.. _get_line_SOURCE_CODE: src/1.9_char_arr.c
+get_line_program_
+
+.. _get_line_program: src/1.9_char_arr.c
 
 1. ``char  line[MAXLINE]``
 
@@ -81,3 +82,37 @@ get_line_SOURCE_CODE_
 
   return type ``void``, which states explicitly that no value is returned.
 
+
+1.10-External_variables_N_scope
+-------------------------------
+
+automatic heceforth
+   The local variables, or automatic variables, exist only when the function is called.
+
+External Variables
+^^^^^^^^^^^^^^^^^^
+
+extern_var_program_
+
+.. _extern_var_program: src/1.10_externs.c
+
+As an alternative to automatic variables, it's possible to define variables that are ``external`` to each functions.
+That is variables that can be accessed by name by any function.::
+
+   This mechanism is rather like Fortan COMMON or Pascal variables declared in the outermost block.
+
+Because External variables are globally accessible,
+they can be used instead of argument lists to communicate data between functions.
+Furthermore, because ``external variables`` remain in existence  permanently, rather than normally does,
+They retain their values even after the functions that set them have returned.
+
+An external variable mkust be *defined*, exactly once, outside of any function.::
+
+   this sets aside storage for it.
+
+The variable must also be *declared* in each function that wants to access it.::
+
+   This states the type of the variable.
+
+The declaration may be an explicit ``extern`` statement or may be implicit from context.
+To make the discussion concrete, let us rewrite the longest-line program with ``line, longest, max`` as an ``external`` variables.
