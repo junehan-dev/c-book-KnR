@@ -62,3 +62,22 @@ The parameter ``n`` is used as temporary variable.
    The caller must provide the *address* of the variable to be set (technically a *pointer* to a variable).
    The callee function must declare a parameter to be a *pointer* and access the variable indirectly through it.
 
+1.9-Character_Arrays
+--------------------
+
+get_line_SOURCE_CODE_
+.. _get_line_SOURCE_CODE: src/1.9_char_arr.c
+
+1. ``char  line[MAXLINE]``
+
+   Purpose of supplying the size of an array in declaration is to set aside storage.(not to decide.)
+
+#. ``int   get_line(char dest[], int lim)``
+
+   - The length of the array ``dest[]`` is not necessary in the get_line parameter.
+   - Since, its size is set in main.
+
+#. ``void  copy(char dest[], char src[])``
+
+  return type ``void``, which states explicitly that no value is returned.
+
