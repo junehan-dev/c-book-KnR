@@ -106,7 +106,7 @@ they can be used instead of argument lists to communicate data between functions
 Furthermore, because ``external variables`` remain in existence  permanently, rather than normally does,
 They retain their values even after the functions that set them have returned.
 
-An external variable mkust be *defined*, exactly once, outside of any function.::
+An external variable must be *defined*, exactly once, outside of any function.::
 
    this sets aside storage for it.
 
@@ -116,3 +116,39 @@ The variable must also be *declared* in each function that wants to access it.::
 
 The declaration may be an explicit ``extern`` statement or may be implicit from context.
 To make the discussion concrete, let us rewrite the longest-line program with ``line, longest, max`` as an ``external`` variables.
+
+Before a function can use an external variable,
+**The name of the variable must be made to known to the function.**
+
+Extern variables on several source files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+extern variable defined in ``file 1`` and, used in...
+
+   - ``file 2``
+   - ``file 3``
+
+then, ``extern`` declarations are needed in ``file 2`` and ``file 3`` *to connect the occurrences of the variables.*
+
+.. note::
+
+   Usual Practice is to collect ``extern`` declarations and functions in a separate file.
+   Historically called a *header.*
+   That is included by ``#include`` at the front of each source file.
+
+Definition
+   Refers to the place where the variable is created or assigned storage.
+
+Declaration
+   Refers to the places where the nature of the variable is stated but no storage is allocated.
+
+The second version of longest-line program is inferior to first,
+because it destroys the fenerality of two useful functions by wiring into then the names of the variables they manipulate.
+
+.. important::
+
+   At this point we have coverd what might be called the conventional core of C.
+   With this handful of building blocks,
+   It's possible to write useful programs of considerable size, and probably be good idea,
+   if you paused long enough to do so.
+
