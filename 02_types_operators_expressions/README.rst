@@ -96,5 +96,35 @@ When a ``char`` is converted to an int, can it ever produce a negative integer?:
    - Answer varies from machine to machine, reflecting difference in architecture.
    - C guarantees that any character in the machine's standard print character set will never be negative.
 
+Unsigned data conversion
+^^^^^^^^^^^^^^^^^^^^^^^^
 
+Conversion rules are more complicated when ``unsigned`` operands are involved.
+Comparisons between signed and unsigned values are machine-depentant.
+
+   **Because they depend on the sizes of various integer types**
+
+For example, Suppose that::
+
+   - ``int`` 16 bits
+   - ``long`` 32 bits
+   - ``-1L < 1U``   : 1U is promoted to a signed long.
+   - ``-1L > 1UL``  : -1L promoted to unsgined long, U_L_MAX.
+
+float to int
+^^^^^^^^^^^^
+
+floating point bit pattern
+   1 bit(MSB) && 1 byte(exponent) && 31 bits(mentisa)
+
+``float`` to ``int`` causes truncation of any fractional part.
+When ``double`` to ``float``, whether the value is rounded or truncted is implementation dependant.
+
+function argument with void value
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the absence of function prototype,
+
+   - ``char`` ``short`` -> ``int``
+   - ``float`` -> ``double``
 
