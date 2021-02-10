@@ -27,7 +27,7 @@ but ``while`` has no initialization or reinitialization,
 for
 ^^^
 
-Because the componets of the ``for`` are arbitary expressions,
+Because the components of the ``for`` are arbitary expressions,
 for loops are not restricted to arithmetic progressions.
 
 .. warning::
@@ -37,8 +37,10 @@ for loops are not restricted to arithmetic progressions.
 
 - atoi_for_prog_
 - shell_sort_prog_
+- str_expand_ (not cleaned code)
 
 .. _atoi_for_prog: src/3.5_for_atoi.c
 .. _shell_sort_prog: src/3.5_shell_sort.c
+.. _str_expand: src/ft_expand.c
 
 
