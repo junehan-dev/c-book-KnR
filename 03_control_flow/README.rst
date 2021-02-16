@@ -43,4 +43,25 @@ for loops are not restricted to arithmetic progressions.
 .. _shell_sort_prog: src/3.5_shell_sort.c
 .. _str_expand: src/ft_expand.c
 
+3.6-Loops_Do-while
+------------------
+
+do-while, tests at the bottom after making each pass through the loop body.
+*The body is always executed at least once.*
+
+**The ``do-while`` is equivalent to pascal's ``repeat-until`` statement.**
+
+
+- itoa_do-while_prog_
+
+.. _itoa_do-while_prog: src/3.6_itoa.c
+
+3.8-Goto_and_Labels
+-------------------
+
+``goto``
+   C provides the **infinitely-abusable** ``goto`` statement, and labels to branch to.
+   Formally, the ``goto`` is never necessary.
+   Nevertheless, there are a few situations where gotos may find a place.
+   some deeply nested structure.
 
