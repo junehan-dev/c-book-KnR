@@ -72,4 +72,41 @@ External variables (analoguous Fortran ``COMMON`` , *outermost block* in Pascal)
    - Permanent
       - useful in shareing kept data between many other functions called.
 
+4.4-Scope Rules
+---------------
+
+.. code-block:: c
+
+   extern int sp;
+   extern double val[];
+
+This line declare fore the rest of the source file that sp and val do not create variables or reserve storage for their block.
+
+Function ``push`` and ``pop`` could be defined in the one file, and the variable ``val`` and ``sp`` could be defined in another file.
+Then these  definitions and declarations would be nesccessary to tie them togehter:
+
+In file1::
+
+   .. code-block:: c
+
+      extern int	sp;
+      extern double val[];
+
+      void		push(double f) {};
+      double	pop(void) {};
+
+In file2::
+
+   .. code-block:: c
+
+      int	sp = 0;
+      double val[MAXVAL];
+
+Because the ``extern`` declaration in file1 ahead of.
+And outside the function definitions, they apply to all functions.
+*One set of declaration suffices for all of file1.*
+
+4.5-Header files
+----------------
+
 
