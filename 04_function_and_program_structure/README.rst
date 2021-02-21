@@ -109,4 +109,43 @@ And outside the function definitions, they apply to all functions.
 4.5-Header files
 ----------------
 
+There is tradeoff between the **desire that each file have access only to the information it needs for its job** and the practical reality that *it is harder to maintain more header files.*
+
+But for larger program, more organization and more headers would be needed.
+
+4.6-Static_variable
+-------------------
+
+Some variables are for the private use of the functions in their respoective source files,
+And are not meant to be accessed by anything else.
+
+``Static`` declaration
+   Applied to an external variable or function,
+   limits the scope of that object to the rest of the source file being compiled.
+
+External ``static`` thus, Provides a way to hide names which must be external so they can be shared.
+
+.. code-block:: c
+
+   static char	buf[BUFSIZE];
+   static int	bufp = 0;
+
+   int getch(void) {};
+   void ungetch(int c) {};
+
+No other routine will be able to access ``buf`` and ``bufp`` and,
+Those names will not be conflict with same in other files of the same program.
+
+``extern static``
+   External static declaration is most often used for variables and functions.
+   Normally, function names are global, visible to any part of extire program.
+   - function
+      - If a function is declared ``static,`` however, its name is invisible outside of the file in which it is declared.
+
+   - variables
+      - Internal ``static`` variables are local to particular function just as automatic variables.
+        But, unlike automatic, they remain in existance rather tan coming and going each time the function is activated.
+       This means that internal ``static`` variables **provide private, permanent storage within a single function.**
+
+
 
