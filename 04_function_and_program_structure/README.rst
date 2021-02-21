@@ -85,7 +85,7 @@ This line declare fore the rest of the source file that sp and val do not create
 Function ``push`` and ``pop`` could be defined in the one file, and the variable ``val`` and ``sp`` could be defined in another file.
 Then these  definitions and declarations would be nesccessary to tie them togehter:
 
-In file1::
+- In file1:
 
    .. code-block:: c
 
@@ -95,7 +95,7 @@ In file1::
       void		push(double f) {};
       double	pop(void) {};
 
-In file2::
+- In file2:
 
    .. code-block:: c
 
