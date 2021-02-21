@@ -148,4 +148,34 @@ Those names will not be conflict with same in other files of the same program.
        This means that internal ``static`` variables **provide private, permanent storage within a single function.**
 
 
+4.7-Register Varaibles
+----------------------
+
+A ``register`` declaration advised the compiler that the variable in question will be *heavily used.*
+The idea is that ``register`` variables are to be placed in machine registers,
+which may result in smaller and fast proggrams.
+But compilers are free to ignore the advice.
+
+.. code-block:: c
+
+   register int		x;
+   register char	c;
+
+   int fastload(register unsigned m, register long n)
+   {
+       register int		i;
+
+       /*
+        * ...
+        */
+       return (1);
+   }
+	
+
+- ``register`` declaration can only be applied to *automatic variables* and to *formal parameters of a function.*
+- In parctice, there are restriction on register variables, reflecting the realities of underlying hardware.
+- since the word ``register`` is ignored for excess or disallowed declarations, Excess register declarations are harmless.
+- It is not possible to take the address of register variables.
+- The specific restrictions on number and types of register variables vary from machine to machine.
+
 
