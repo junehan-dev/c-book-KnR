@@ -141,11 +141,10 @@ Those names will not be conflict with same in other files of the same program.
    Normally, function names are global, visible to any part of extire program.
    - function
       - If a function is declared ``static,`` however, its name is invisible outside of the file in which it is declared.
-
    - variables
-      - Internal ``static`` variables are local to particular function just as automatic variables.
-        But, unlike automatic, they remain in existance rather tan coming and going each time the function is activated.
-       This means that internal ``static`` variables **provide private, permanent storage within a single function.**
+      - Internal ``static`` variables are local to particular function just as automatic variables. 
+      - But, unlike automatic, they remain in existance rather tan coming and going each time the function is activated.
+      - This means that internal ``static`` variables **provide private, permanent storage within a single function.**
 
 
 4.7-Register Varaibles
@@ -178,4 +177,130 @@ But compilers are free to ignore the advice.
 - It is not possible to take the address of register variables.
 - The specific restrictions on number and types of register variables vary from machine to machine.
 
+4.11-The C Preprocessor
+-----------------------
+
+C provides certain language facilities by means of a preprocessor, which is conceptually **a seperate first step in compilation.**
+
+The two-most frequently used features are
+
+   - ``#include``
+      - To include the content of a file during compilation.
+
+   - ``#define``
+      - To replace a token by an arbitary sequence of characters.
+
+Other feature described in this section include
+
+   - conditional compilation
+   - macros with arguments
+
+4.11.1-File inclusion
+^^^^^^^^^^^^^^^^^^^^^
+
+File inclusion makes it easy to handle collection of ``#defines`` and declarations (among the other things).
+Any source line of the form
+
+- ``#include "filename"``
+- ``#include <filename>``
+
+
+``#include``
+   ``#include`` is the preferred way to tie the declaration together for a large program.
+
+   - It guarantees that all the source files will be supplied with the same definitions and variable declarations.
+   - And thus eliminates a particularaly nasty kind of bug.
+   
+
+4.11.2-Macro Subtituition
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A definition has the form,
+
+   ``#define <name> <replacement text>``
+
+For example,
+
+   .. code-block:: c
+
+      #define forever		for (;;)		/* infinite loop */
+      #define max(A, B)		((A) > (B) ? (A) : (B))
+   
+- Usage
+
+   ``x = max(p + q, r + s);``
+
+- Wrong Uasge
+
+   ``max(i++, j++); /* WRONG!! */``
+
+   If you examine the expansion of ``max`` ,
+   You will notice some *pitfalls.*
+   The expressions are evaluated twice.
+
+   .. note::
+
+      This is bad if they invlove side effects like increment operators or input and output.
+      Example above will increment the larger value twice.
+
+   ``#define squre(x) x * x /* WRONG!! */``
+   ``square(z + 1);``
+
+Nonetheless, macros are valueable.
+One practical example ``getchar`` and ``putchar`` are often defined as macros **to avoid the run-time overhead of a function call per character proceed.**
+The functions in ``<ctype.h>`` are also usually implementd as macros.
+
+Names may be undefined with ``#undef`` , usually to ensure that a routine is really a function, not a macro:
+
+.. code-block:: c
+
+   #undef getchar
+
+   int	getchar(void)
+
+``##`` operator provides a way to concatenate actual arguments during macro expansion.
+For example,
+
+.. code-block:: c
+
+   #define	paste(front, back)	front ## back
+
+so paste(name, 1) creates the token name1.
+
+4.11.3-Conditional inclusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``#if`` line evaluates a constant interger expression.
+If the expressions is non-zero, subsequent lines until an,
+
+- ``#endif``
+- ``#elif``
+- ``#else``
+
+are included.
+
+.. code-block:: c
+
+   #if !defined(HDR) /* Equal to ifndef */
+   #define HDR
+
+   /* content of HDR.h go here */
+
+   #endif
+
+A simmilar style can be used to avoid including files multiple times.
+Below sequence tests the name *SYSTEM* to decide which version of a header t o include:
+
+.. code-block:: c
+
+   #if SYSTEM == SYSV
+       #define HDR "sysv.h"
+   #elif SYSTEM == BSD
+       #define HDR "bsd.h"
+   #elif SYSTEM == MSDOS
+       #define HDR "msdos.h"
+   #else
+       #define HDR "defaults.h"
+   #endif
+   #include HDR
 
