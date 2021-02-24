@@ -145,7 +145,7 @@ Declaration
 The second version of longest-line program is inferior to first,
 because it destroys the fenerality of two useful functions by wiring into then the names of the variables they manipulate.
 
-.. important::
+.. important:
 
    At this point we have coverd what might be called the conventional core of C.
    With this handful of building blocks,
