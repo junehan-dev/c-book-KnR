@@ -1,29 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-void	shellsort(int v[], int n);
-void	shellsort_while(int v[], int n);
+void    shellsort(int v[], int n);
+void    shellsort_while(int v[], int n);
 /* sort stack based array into increasing order */
 
-int		main(void)
+int     main(void)
 {
-	int i, n;
-	int	v[] = {5, 6, 2, 4, 1};
-	n = 5;
+    int i, n;
+    int    v[] = {5, 6, 2, 4, 1};
+    n = 5;
 
-	i = 0;
-	while (i < n)
-	{
-		printf("v[%d] : %d\n", i, *(v+i));
-		i++;
-	}
-	shellsort_while(v, n);
-	i = 0;
-	while (i < n)
-	{
-		printf("v[%d] : %d\n", i, *(v+i));
-		i++;
-	}
-	return (EXIT_SUCCESS);
+    i = 0;
+    while (i < n)
+    {
+        printf("v[%d] : %d\n", i, *(v+i));
+        i++;
+    }
+    shellsort_while(v, n);
+    i = 0;
+    while (i < n)
+    {
+        printf("v[%d] : %d\n", i, *(v+i));
+        i++;
+    }
+    return (EXIT_SUCCESS);
 }
 
 void    shellsort(int v[], int n)
@@ -58,8 +58,8 @@ void    shellsort_while(int v[], int n)
         while (i < n) { // i gap to n
             j = i - gap;
             while (j >= 0) {
-				if (v[j] > v[j + gap])
-					break;
+                if (v[j] > v[j + gap])
+                    break;
                 temp = v[j];
                 v[j] = v[j + gap];
                 v[j + gap] = temp;

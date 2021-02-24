@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:44:16 by junehan           #+#    #+#             */
-/*   Updated: 2021/02/10 15:31:59 by junehan          ###   ########.fr       */
+/*   Updated: 2021/02/24 10:55:08 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,3 @@ int     is_expandable(char prev, char next)
 
     return (ret);
 }
-
