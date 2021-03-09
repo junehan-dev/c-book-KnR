@@ -234,3 +234,22 @@ The use of comp in the line:
        else
            return (0);
    }
+
+5.12-Complicated Declarations
+-----------------------------
+
+C is somtimes Casticated (=kind of compliplicated) for syntax of its declarations, **particularly ones that involve pointers to functions.**
+
+
+.. code-block:: c
+
+   int *f();	/* f:	function returning pointer to int */
+   int (*pf)();	/* pf:	pointer to function returning int */
+
+.. note::
+
+   - * is prefix operator and has lower precedence than (). so, parentheses are necessary to force the proper association.
+   - typedef: is Good way to synthesize declarations in small steps with.
+
+DCL_ONGOING...
+^^^^^^^^^^^^^^
