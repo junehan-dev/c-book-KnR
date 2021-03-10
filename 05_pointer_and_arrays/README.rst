@@ -251,5 +251,3 @@ C is somtimes Casticated (=kind of compliplicated) for syntax of its declaration
    - * is prefix operator and has lower precedence than (). so, parentheses are necessary to force the proper association.
    - typedef: is Good way to synthesize declarations in small steps with.
 
-DCL_ONGOING...
-^^^^^^^^^^^^^^
