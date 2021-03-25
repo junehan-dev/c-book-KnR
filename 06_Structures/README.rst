@@ -162,3 +162,24 @@ Structure Pointer
 03-Arrays of Structures
 -----------------------
 
+get_occurence.c_
+   NAME
+      A Program to count the occurrences of each C keyword.
+   Resource
+      - An array of character strings to hold the names.
+      - An array of integers for the count.
+
+.. code-block:: c
+
+   /* Way 1: Use two parallel arrays */
+   char	*keyword[NKEYS];
+   int	*keycount[NKEYS];
+
+   /* Structure array */
+   struct key {
+       char *word;
+       int count;
+   };
+
+   struct key keytab[NKEYS]; /* set aside storage of them. */
+
