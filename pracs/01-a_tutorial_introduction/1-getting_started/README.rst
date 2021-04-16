@@ -27,4 +27,4 @@ Result
 
    Error:
       ``1-2_escape_c.c:5:13: error: unknown escape sequence: '\c' [-Werror]``
-   
+
