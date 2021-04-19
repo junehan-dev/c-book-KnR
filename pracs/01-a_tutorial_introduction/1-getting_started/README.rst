@@ -5,8 +5,8 @@ Getting Started
 #. A C program, whatever its size, consists of functions and variables.
 #. One method of communicating data between functions is for the calling function to provide a list of values, called *arguments*, to the function it calls.
 
-Excercise 1-1
--------------
+Exercise 1-1
+------------
    Run the "hello, world" program on your system.
    Experment with leaving out parts of the program, to see what error messages you get.
 
@@ -16,8 +16,8 @@ Result
    It more modern and crowds are now familiar to c language.
    so error refered in book, no newline, is deprecated i guess.
 
-Excercise 1-2
--------------
+Exercise 1-2
+------------
    Experiment to find out what happens when printf's argument string contains ``\c`` where c is some character not listed above.
 
 Result

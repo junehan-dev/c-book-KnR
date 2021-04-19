@@ -17,14 +17,19 @@ Careful when calculate floating point numbers
           printf("True");
 
 
-Excercise 1-1
--------------
+Exercise 1-1
+------------
+   Modify the temperature conversion program to print a heading above the table.
 
 Result
 ^^^^^^
+   Pass this Exercise.
 
-Excercise 1-2
--------------
+Exercise 1-2
+------------
+   Write a Program to print the corresponding Celsius to Fahrenheit table.
 
 Result
 ^^^^^^
+   make default-target to ``celtofhar.out``
+   Run with cli params.
