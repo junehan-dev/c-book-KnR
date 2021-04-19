@@ -1,10 +1,10 @@
 float	fahrtocel(float fahr)
 {
-	return ((5.0 * (fahr - 32)) / 9.0);
+	return ((fahr - 32.0f) * 5.0f / 9.0f);
 }
 
 float 	celtofahr(float cel)
 {
-	return ((9.0 * cel / 5.0) + 32);
+	return (cel * 9.0f / 5.0f + 32.0f);
 }
 

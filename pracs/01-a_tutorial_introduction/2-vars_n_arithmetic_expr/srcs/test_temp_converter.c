@@ -1,5 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <math.h>
+#include <float.h>
 #include "dbg.h"
 #include "temp_converter.h"
 #define	MAXCASES 6
@@ -7,16 +9,16 @@
 int	test_fahrtocel(void)
 {
 	int 	i;
-	float	fahrs[MAXCASES] = {0.0, 20.0, 40.0, 60.0, 80.0, 100.0};
-	float	cels[MAXCASES] = {-17.0, -6.0, 4.0, 15.0, 26.0, 37.0};
+	float	fahrs[MAXCASES] = {1.4f, 21.2f, 39.2f, 59.0f, 78.8f, 98.6f};
+	float	cels[MAXCASES] = {-17.0f, -6.0f, 4.0f, 15.0f, 26.0f, 37.0f};
 
 	i = 0;
 	assert(!i);
 	while (i < MAXCASES) {
-		debug("fahr %f to cel :%f, expect %f", fahrs[i], fahrtocel(fahrs[i]), cels[i]);
-		assert((fahrtocel(fahrs[i]) - cels[i] < 2));
-		debug("cel %f to fahr :%f, expect %f\n", cels[i], celtofahr(cels[i]), fahrs[i]);
-		assert((celtofahr(cels[i]) - fahrs[i]) < 2);
+		debug("fahr %f to cel :%f, expect %f, ret = %f", fahrs[i], fahrtocel(fahrs[i]), cels[i], fabsf(fahrtocel(fahrs[i]) - cels[i]));
+		assert(fabsf(fahrtocel(fahrs[i]) - cels[i]) <= 0.00001);
+		debug("cel %f to fahr :%f, expect %f, ret = %f", cels[i], celtofahr(cels[i]), fahrs[i], fabsf(celtofahr(cels[i]) - fahrs[i]));
+		assert(fabsf(fahrs[i] - celtofahr(cels[i])) <= 0.00001);
 		i++;
 	}
 	return (i);
