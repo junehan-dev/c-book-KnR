@@ -22,5 +22,6 @@ clean:
 	/bin/rm $(OBJ)
 
 .PHONY: fclean
+fclean:
 	/bin/rm $(NAME)
 
