@@ -24,6 +24,12 @@ Exercise 1-8
 ^^^^^^^^^^^^
    Write a Program to count blanks, tabs, and newlines.
 
+Result
+^^^^^^
+   Using isblank, ft_itoa to parse input value.
+   ``make`` and run program.
+   Finish with ``make clean``
+
 Exercise 1-9
 ^^^^^^^^^^^^
    1. Write a Program to copy its input to its output.
