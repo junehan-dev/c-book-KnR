@@ -1,9 +1,10 @@
+#ifndef __FT_ADDITIONALS__H
+#define __FT_ADDITIONALS__H
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef __FT_ADDITIONALS__H
-# define __FT_ADDITIONALS__H
+#define MAXLEN 1024
 char        *ft_substr(char const *s, unsigned int start, size_t len);
 char        *ft_strjoin(char const *s1, char const *s2);
 char        *ft_strtrim(char const *s1, char const *set);
