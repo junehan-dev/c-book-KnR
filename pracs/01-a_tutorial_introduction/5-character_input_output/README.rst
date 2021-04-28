@@ -50,3 +50,7 @@ Exercise 1-10
 Result
 ^^^^^^
    Not that diff from 1-9.
+
+*Skipped 1.5.4 Wordcounting...*
+
+
