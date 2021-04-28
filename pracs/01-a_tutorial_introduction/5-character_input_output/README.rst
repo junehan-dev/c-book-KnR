@@ -35,8 +35,18 @@ Exercise 1-9
    1. Write a Program to copy its input to its output.
    2. Replace each string of one or more blanks by a single blank.
 
+Result
+^^^^^^
+   Using additionals.a/ft_strjoin, ft_split:
+   splits with space occurences and substitute with single space.
+   malloc and free for splited strings and joined string also.
+
 Exercise 1-10
 ^^^^^^^^^^^^^
    1. Write a program to copy its input to its output.
    2. Replace each tab by \t, each backspace by \b, each backslash by \\.
    3. This makes tabs and backspaces visible in an unambiguous way.
+
+Result
+^^^^^^
+   Not that diff from 1-9.
