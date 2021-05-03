@@ -33,4 +33,4 @@ Exercise 1-14
 
 Result
 ^^^^^^
-
+   frequencies of different character doesn't understandable...
