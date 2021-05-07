@@ -1,7 +1,8 @@
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 NAME			= char_arr.a
-OBJECTS			= srcs/strmap.o
+OBJECTS			= srcs/strmap.o \
+				srcs/ft_str_next_split.o
 .DEFAULT_GOAL	:= all
 
 
@@ -21,6 +22,9 @@ $(NAME): $(OBJECTS)
 	ar rcs $@ $^
 	ranlib $@
 
+	
+filter_lines: 
+
 .PHONY: clean
 clean:
 	/bin/rm $(OBJECTS)
@@ -36,3 +40,8 @@ re: clean fclean $(NAME)
 srcs/strmap.o:
 	$(CC) $(CFLAGS) -c srcs/strmap.c -o $@
 
+srcs/ft_str_next_split.o:
+	$(CC) $(CFLAGS) -c srcs/ft_str_next_split.c -o $@
+
+filter_line:
+	$(CC) $(CFLAGS) -g -Iincludes filter_line.c $(NAME) -o $@
