@@ -2,12 +2,15 @@ CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 NAME			= char_arr.a
 OBJECTS			= srcs/strmap.o \
-				srcs/ft_str_next_split.o
+				srcs/ft_str_next_split.o \
+				srcs/ft_str_reverse.o
+PROGS			= filter_line.run \
+				reverse_input.run
 .DEFAULT_GOAL	:= all
 
 
 .PHONY: all
-all: build
+all: build $(PROGS)
 
 .PHONY: test
 test:
@@ -32,9 +35,12 @@ clean:
 .PHONY: fclean
 fclean:
 	/bin/rm $(NAME)
+	/bin/rm $(PROGS)
 
 .PHONY: re
-re: clean fclean $(NAME)
+re: $(NAME) clean fclean
+	$(MAKE) $(NAME)
+	$(MAKE) $(PROGS)
 
 # SRCS
 srcs/strmap.o:
@@ -43,5 +49,12 @@ srcs/strmap.o:
 srcs/ft_str_next_split.o:
 	$(CC) $(CFLAGS) -c srcs/ft_str_next_split.c -o $@
 
-filter_line:
-	$(CC) $(CFLAGS) -g -Iincludes filter_line.c $(NAME) -o $@
+srcs/ft_str_reverse.o:
+	$(CC) $(CFLAGS) -c srcs/ft_str_reverse.c -o $@
+
+# Programs
+filter_line.run:
+	$(CC) $(CFLAGS) -g -Iincludes srcs/filter_line.c $(NAME) -o $@
+
+reverse_input.run:
+	$(CC) $(CFLAGS) -g -Iincludes srcs/reverse_input.c $(NAME) -o $@
