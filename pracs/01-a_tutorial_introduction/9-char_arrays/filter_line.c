@@ -3,18 +3,16 @@
 #include <string.h>
 #include <stdlib.h>
 #include "char_arr.h"
-#define BUFSIZ 4096
-
 
 ssize_t	filter_bytes(void *src)
 {
 	ssize_t		ret;
 
 	ret = (strlen((const char *)src));
-	return ((ret > 12) ? ret : 0);
+	return ((ret > 79) ? ret : 0);
 }
 
-int		read_and_map(const char *filename)
+int		read_and_map(const char *path)
 {
 	int		fd;
 	char 	*dest[BUFSIZ];
@@ -22,25 +20,22 @@ int		read_and_map(const char *filename)
 	int		i;
 	
 
-	fd = open(filename, O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (!fd)
 		return (1);
+
 	len = ft_readlines(dest, fd);
-	write(STDOUT_FILENO, "hi\n", 3);
+	close(fd);
 	i = 0;
 	while (i < len) {
-		if (strmap(dest[i], filter_bytes)) {
+		if (strmap(dest[i], filter_bytes))
 			write(STDOUT_FILENO, dest[i], strlen(dest[i]));
-			write(STDOUT_FILENO, "\nby\n", 4);
-		}
 		free(dest[i]);
 		i++;
 	}
-	close(fd);
 	return (len);
 }
 
-#include <stdio.h>
 int		main(int argc, const char *argv[])
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 13:19:11 by junehan           #+#    #+#             */
-/*   Updated: 2021/05/07 17:43:26 by junehan          ###   ########.fr       */
+/*   Updated: 2021/05/10 16:12:11 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*ft_str_next_split(const char *src, int c)
 	static const char	*src_pt;
 	char				*ret;
 
-	if (!src || !c) {
+	if (!src) {
 		src_pt = NULL;
 		return (NULL);
 	}
@@ -27,12 +27,17 @@ char		*ft_str_next_split(const char *src, int c)
 	if (!src_pt)
 		src_pt = src;
 
-	ret = (char *)src_pt;
-
-	while (*src_pt == c)
+	while (*src_pt == c && *src_pt != -1)
 		src_pt++;
 
-	while (*src_pt != c && *src_pt)
+	if (*src_pt == -1) {
+		src_pt = NULL;
+		return (NULL);
+	}
+
+	ret = (char *)src_pt;
+
+	while (*src_pt != c && *src_pt != -1)
 		src_pt++;
 
 	ret = strndup(ret, (char *)src_pt - ret);
@@ -59,6 +64,9 @@ ssize_t		ft_readlines(char **dest, int fileno)
 
 		ft_str_next_split(NULL, 0);
 	}
+
+	if (!rb)
+		return (ret);
 
 	buf[rb + 1] = '\0';
 	str = ft_str_next_split((const char *) buf, '\n');
