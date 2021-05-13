@@ -1,24 +1,40 @@
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
-OBJECT			= srcs/ft_tab.o
-NAME			= convert_tab
+NAME			= ft_str.a
+OBJECTS			= srcs/ft_strjoin.o \
+				srcs/ft_strndup.o \
+				srcs/ft_strstr.o \
+				srcs/ft_strreplace.o
+
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
 all: $(NAME)
 
-$(OBJECT):
-	$(CC) $(CFLAGS) -c srcs/ft_tab.c -o $@
-
-$(NAME): $(OBJECT)
-	$(CC) $(CFLAGS) -Iincludes srcs/$@.c $^ -o $@
+$(NAME): $(OBJECTS)
+	ar rcs $@ $^
+	ranlib $@
 
 .PHONY: clean
 clean:
-	/bin/rm $(OBJECT)
+	/bin/rm $(OBJECTS)
 
 .PHONY: fclean
+fclean:
 	/bin/rm $(NAME)
 
 .PHONY: re
 re:	$(NAME) clean fclean $(NAME)
+
+srcs/ft_strjoin.o:
+	$(CC) $(CFLAGS) -c srcs/ft_strjoin.c -o $@
+
+srcs/ft_strndup.o:
+	$(CC) $(CFLAGS) -c srcs/ft_strndup.c -o $@
+
+srcs/ft_strstr.o:
+	$(CC) $(CFLAGS) -c srcs/ft_strstr.c -o $@
+
+srcs/ft_strreplace.o:
+	$(CC) $(CFLAGS) -c -Iincludes/ srcs/ft_strreplace.c -o $@
+
