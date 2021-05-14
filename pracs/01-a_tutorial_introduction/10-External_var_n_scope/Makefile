@@ -23,6 +23,9 @@ clean:
 fclean:
 	/bin/rm $(NAME)
 
+.PHONY: tests
+tests: test_strstr
+
 .PHONY: re
 re:	$(NAME) clean fclean $(NAME)
 
@@ -37,4 +40,11 @@ srcs/ft_strstr.o:
 
 srcs/ft_strreplace.o:
 	$(CC) $(CFLAGS) -c -Iincludes/ srcs/ft_strreplace.c -o $@
+
+.PHONY: test_strstr
+test_strstr:
+	$(CC) $(CFLAGS) -Iincludes tests/$@.c $(NAME) -o $@
+	./$@
+	/bim/rm $@
+
 
