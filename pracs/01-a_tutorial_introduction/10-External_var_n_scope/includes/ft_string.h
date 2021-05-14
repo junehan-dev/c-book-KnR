@@ -4,7 +4,7 @@
 #endif 
 #ifndef _FT_STRING_H_
 #define _FT_STRING_H_
-#define	BUFSIZ	2048
+#define	BUFSIZE	2048
 char	*ft_strreplace(const char *s, const char *from, const char *to);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strstr(const char *haystack, const char *needle);
