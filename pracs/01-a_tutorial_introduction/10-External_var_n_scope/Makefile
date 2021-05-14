@@ -1,26 +1,32 @@
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
-NAME			= 
-OBJECTS			= 
+#NAME			= 
+PROGRAMS		= print_longest \
+				detab
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
-all: $(NAME)
+all: $(PROGRAMS)
 
-$(NAME): $(OBJECTS)
-	ar rcs $@ $^
-	ranlib $@
+$(NAME):
 
-convert_tab:
+.PHONY: print_longest
+print_longest:
+	$(CC) $(CFLAGS) srcs/$@.c -o $@
+
+.PHONY: detab
+detab:
+	$(CC) $(CFLAGS) srcs/$@.c -o $@
 
 .PHONY: clean
 clean:
-	/bin/rm $(OBJECTS)
+	echo "DO clean"
 
 .PHONY: fclean
 fclean:
-	/bin/rm $(NAME)
+	echo "DO fclean"
+	/bin/rm $(PROGRAMS)
 
 .PHONY: re
-re:	$(NAME) clean fclean $(NAME)
+re:	$(all) clean fclean $(NAME)
 
