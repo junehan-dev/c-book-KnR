@@ -2,8 +2,8 @@ CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 NAME			= ft_extern.a
 PROGRAMS		= print_longest \
-				detab 
-				#entab
+				detab \
+				entab
 OBJECTS			= srcs/copy.o \
 				srcs/get_line.o
 
@@ -15,10 +15,6 @@ all: $(NAME) $(PROGRAMS)
 $(NAME): $(OBJECTS)
 	ar rcs $@ $^
 	ranlib $@
-
-.PHONY: entab
-entab:
-	$(CC) $(CFLAGS) srcs/$@.c -o $@
 
 .PHONY: clean
 clean:
@@ -32,7 +28,7 @@ fclean:
 	/bin/rm $(PROGRAMS)
 
 .PHONY: re
-re:	$(all) clean fclean $(all)
+re:	clean fclean all
 
 .PHONY: print_longest
 print_longest:
