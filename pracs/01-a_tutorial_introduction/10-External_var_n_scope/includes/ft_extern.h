@@ -7,4 +7,5 @@
 char	line[MAXLINE];
 int		copy(char *dest, const char *src);
 int		get_line(void);
+size_t	fstring(char *src, int v[]);
 #endif
