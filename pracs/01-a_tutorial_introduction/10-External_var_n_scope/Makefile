@@ -5,8 +5,8 @@ PROGRAMS		= print_longest \
 				detab \
 				entab
 OBJECTS			= srcs/copy.o \
-				srcs/get_line.o
-
+				srcs/get_line.o \
+				srcs/fstring.o
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
@@ -50,3 +50,6 @@ srcs/copy.o:
 srcs/get_line.o:
 	$(CC) $(CFLAGS) -c srcs/get_line.c -o $@
 
+.PHONY: srcs/fstring.o
+srcs/fstring.o:
+	$(CC) $(CFLAGS) -c srcs/fstring.c -o $@
