@@ -1,5 +1,4 @@
 #include <assert.h>
-#include <stdio.h>
 #include <unistd.h>
 #define MAXLEN	2048
 
@@ -24,7 +23,6 @@ char *itoa(char *dest, int v)
 		buf[i++] = '-';
 	}
 	buf[i] = '\0';
-	printf(":%s\n", buf);
 	dest += i;
 	i = 0;
 	while (buf[i])
