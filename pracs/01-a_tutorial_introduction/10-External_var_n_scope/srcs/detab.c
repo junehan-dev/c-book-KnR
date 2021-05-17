@@ -17,12 +17,14 @@ int 	main(void)
 		i = 0;
 		while (*(line + i)) {
 			if (*(line + i) == '\t')
-				detab(line, i);
-			i++;
+				i = detab(line, i);
+			else
+			    i++;
 		}
 		i = 0;
 		while (*(line + i))
 			assert(*(line + i++) != '\t');
+		printf("%s\n", line);
 	}
 }
 
@@ -38,7 +40,7 @@ int		detab(char *src, int nth)
 	i = 4;
 	while (i--)
 		assert(*(src + nth + i) == ' ');
-	return (nth);
+	return (nth + 4);
 }
 
 int		get_line(void)
