@@ -15,12 +15,8 @@ int 	main(void)
 	
 	while (get_line()) {
 		i = 0;
-		while (*(line + i)) {
-			if (*(line + i) == '\t')
-				i = detab(line, i);
-			else
-			    i++;
-		}
+		while (*(line + i))
+			i = (*(line + i) == '\t') ? detab(line, i) : (i + 1);
 		i = 0;
 		while (*(line + i))
 			assert(*(line + i++) != '\t');
