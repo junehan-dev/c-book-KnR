@@ -2,7 +2,8 @@ CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 #NAME			= 
 PROGRAMS		= print_longest \
-				detab
+				detab \
+				entab
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
@@ -16,6 +17,10 @@ print_longest:
 
 .PHONY: detab
 detab:
+	$(CC) $(CFLAGS) srcs/$@.c -o $@
+
+.PHONY: entab
+entab:
 	$(CC) $(CFLAGS) srcs/$@.c -o $@
 
 .PHONY: clean
