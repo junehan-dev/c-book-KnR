@@ -1,12 +1,6 @@
-#include <assert.h>
-#include <stdio.h>
-#define MAXLINE 2048
+#include "ft_extern.h"
 
-char	line[MAXLINE];
-int		readline(void);
-int		copy(char *dest, const char *src);
 int		detab(char *src, int nth);
-int		get_line(void);
 
 int 	main(void)
 {
@@ -35,38 +29,5 @@ int		detab(char *src, int nth)
 		assert(*(src + nth + i) == ' ');
 	assert(*(src + nth + 4) == buf[0]);
 	return (nth + 4);
-}
-
-int		get_line(void)
-{
-	int				c;
-	int				i;
-	extern char		line[];
-
-	i = 0;
-	c = getchar();
-	while (i < MAXLINE - 1 && c != EOF && c != '\n') {
-		line[i++] = c;
-		c = getchar();
-		if (c == EOF)
-			return (0);
-	}
-
-	if (c == '\n')
-		line[i++] = c;
-
-	line[i] = '\0';
-	return (i);
-}
-
-int		copy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while ((*(dest + i) = *(src + i)))
-		i++;
-
-	return (i);
 }
 
