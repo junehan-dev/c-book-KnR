@@ -7,17 +7,25 @@ int		main(void)
 {
 	int			i;
 	char		ch;
+	int			occurences[2];
 	extern char	line[];
+	
 
 	while (get_line()) {
 		i = 0;
-		
+		occurences[0] = 0;
+		occurences[1] = 0;
 		while ((ch = *(line + i))) {
-			if (ch == ' ' && is_entab(line + i))
-				entab(line, i);
-			printf("%c: %d\n", *(line + i), *(line + i));
+			if (ch == ' ') {
+				if (is_entab(line + i)) {
+					entab(line, i);
+					occurences[1] += 1;
+				} else
+					occurences[0] += 1;
+			}
 			i++;
 		}
+		fstring("spaces: %d, new tabs: %d.\n", occurences);
 	}
 }
 
