@@ -42,10 +42,10 @@ void		entab(char *src)
 {
 	char	buf[MAXLINE];
 
-	copy(buf, (src + 4));
-	copy(src, "\t\0");
-	copy(src + 1, buf);
+	*buf = '\t';
+	copy(buf + 1, (src + 4));
+	copy(src, buf);
 	assert(*src == '\t');
-	assert(*(buf) == *(src + 1));
+	assert(*(buf + 1) == *(src + 1));
 }
 
