@@ -4,7 +4,6 @@
  * Macros
  */
 #define	is_blank(ch) ((ch == ' ' || ch == '\t') ? 1 : 0);
-#define	is_column(ch) ((ch == '\n' || ch == '.') ? 1 : 0);
 /*
  * Forward functions
  */
@@ -33,16 +32,21 @@ ssize_t next_nonblank(const char *src)
 ssize_t next_column(const char *src)
 {
 	ssize_t	i;
+	char ch;
 
 	i = 0;
-	while (*(src + i))
-		if (is_column(*(src + i++))) {
-			while (is_column(*(src + i)))
-				;
-			return (i);
-		}
-	return (-1);
+	
+	while ((ch = *(src + i)) && ch != '.' && ch != '\n')
+		i++;
+
+	if (ch == '.') {
+		while ((ch = *(src + i)) != '.')
+			i++;
+	} else if (ch == '\n') {
+		while ((ch = *(src + i)) != '\n')
+			i++;
+	} else
+		i = -1;
+	return (i);
 }
-
-
 
