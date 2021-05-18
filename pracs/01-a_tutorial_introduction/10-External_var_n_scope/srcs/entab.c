@@ -1,24 +1,22 @@
 #include "ft_extern.h"
 
-int		entab(char *src, int nth);
+void	entab(char *src);
 int		is_entab(char *src);
 
 int		main(void)
 {
 	int			i;
-	char		ch;
 	int			occurences[2];
 	extern char	line[];
-	
 
 	while (get_line()) {
 		i = 0;
 		occurences[0] = 0;
 		occurences[1] = 0;
-		while ((ch = *(line + i))) {
-			if (ch == ' ') {
+		while (*(line + i)) {
+			if (*(line + i) == ' ') {
 				if (is_entab(line + i)) {
-					entab(line, i);
+					entab(line + i);
 					occurences[1] += 1;
 				} else
 					occurences[0] += 1;
@@ -40,15 +38,14 @@ int		is_entab(char *src)
 	return (1);
 }
 
-int		entab(char *src, int nth)
+void		entab(char *src)
 {
 	char	buf[MAXLINE];
 
-	copy(buf, (src + nth + 4));
-	copy((src + nth), "\t\0");
-	copy(src + nth + 1, buf);
-	assert(*(src + nth) == '\t');
-	assert(*(buf) == *(src + nth + 1));
-	return (nth + 1);
+	*buf = '\t';
+	copy(buf + 1, (src + 4));
+	copy(src, buf);
+	assert(*src == '\t');
+	assert(*(buf + 1) == *(src + 1));
 }
 
