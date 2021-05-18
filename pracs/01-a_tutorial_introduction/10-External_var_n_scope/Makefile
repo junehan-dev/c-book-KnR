@@ -6,7 +6,11 @@ PROGRAMS		= print_longest \
 				entab
 OBJECTS			= srcs/copy.o \
 				srcs/get_line.o \
-				srcs/fstring.o
+				srcs/fstring.o \
+				srcs/next_paragraph.o \
+				srcs/next_column.o \
+				srcs/next_nonblank.o 
+
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
@@ -53,3 +57,16 @@ srcs/get_line.o:
 .PHONY: srcs/fstring.o
 srcs/fstring.o:
 	$(CC) $(CFLAGS) -c srcs/fstring.c -o $@
+
+.PHONY: srcs/next_paragraph.o
+srcs/next_paragraph.o:
+	$(CC) $(CFLAGS) -c srcs/next_paragraph.c -o $@
+
+.PHONY: srcs/next_column.o 
+srcs/next_column.o:
+	$(CC) $(CFLAGS) -c srcs/next_column.c -o $@
+
+.PHONY: srcs/next_nonblank.o 
+srcs/next_nonblank.o:
+	$(CC) $(CFLAGS) -c srcs/next_nonblank.c -o $@
+

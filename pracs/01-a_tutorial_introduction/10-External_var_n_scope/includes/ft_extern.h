@@ -4,8 +4,12 @@
 #include <stdio.h>
 #include <unistd.h>
 #define MAXLINE 2048
-char	line[MAXLINE];
-int		copy(char *dest, const char *src);
-int		get_line(void);
-size_t	fstring(char *src, int v[]);
+char		line[MAXLINE];
+int			copy(char *dest, const char *src);
+int			get_line(void);
+size_t		fstring(char *src, int v[]);
+ssize_t		next_column(const char *src);
+ssize_t		next_nonblank(const char *src);
+const char	*next_paragraph(const char *src);
 #endif
+
