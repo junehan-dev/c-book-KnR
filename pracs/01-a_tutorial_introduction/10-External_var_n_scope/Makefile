@@ -3,7 +3,8 @@ CFLAGS			= -Wall -Werror -Wextra
 NAME			= ft_extern.a
 PROGRAMS		= print_longest \
 				detab \
-				entab
+				entab \
+				fold
 OBJECTS			= srcs/copy.o \
 				srcs/get_line.o \
 				srcs/fstring.o \
@@ -46,6 +47,10 @@ detab:
 entab:
 	$(CC) $(CFLAGS) -Iincludes srcs/$@.c $(NAME) -o $@
 
+.PHONY: fold
+fold:
+	$(CC) $(CFLAGS) -Iincludes srcs/$@.c $(NAME) -o $@
+	
 .PHONY: srcs/copy.o
 srcs/copy.o:
 	$(CC) $(CFLAGS) -c srcs/copy.c -o $@
