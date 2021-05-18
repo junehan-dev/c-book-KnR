@@ -29,6 +29,9 @@ Procedure
 
 Exercise 1-22
 ^^^^^^^^^^^^^
+   Write a prgram to "fold" long input lines into tow or more shorter lines.
+      Fold after the last non-blank character that occures before the n-th column of input.
+      Make program does something intelligent with very long lines, and if there are no blanks or tabs before the specified column.
    
 
 Exercise 1-23
