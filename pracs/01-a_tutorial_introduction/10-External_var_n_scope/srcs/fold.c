@@ -5,31 +5,47 @@
 #include "ft_extern.h"
 #define NL	'\n'
 
+size_t	set_paragraph(const char **dest, const char *src);
 
 int		main(int argc, const char *argv[])
 {
-	const char	*start;
-	const char	*end;
-	int			counts[1];
+	const char	*paras[MAXLINE];
+	const char	**para_pt;
+	int			arg;
 
 	if (argc < 2)
 		return (0);
+	assert(argc > 1);
 
-	assert(argc == 2);
-	counts[0] = 0;
-	start = argv[1];
-	
-	while ((end = next_paragraph(start))) {
-		assert(*(end - 1) == NL);
-		counts[0]++;
-		fstring("paragraph %d: ", counts);
-		write(STDOUT_FILENO, start, end - start);
-		start = end;
+	arg = 1;
+	while (arg < argc) {
+		set_paragraph(paras, argv[arg++]);
+		para_pt = paras;
+		while (*para_pt) {
+			write(STDOUT_FILENO, *para_pt, *(para_pt + 1) - *para_pt - 1);
+			para_pt++;
+		}
 	}
-	assert(end == NULL); 
-	counts[0]++;
-	fstring("paragraph %d: ", counts);
-	write(STDOUT_FILENO, start, strlen(start));
 	return (0);
+}
+
+
+size_t	set_paragraph(const char **dest, const char *src)
+{
+	size_t		ret;
+	const char	*start;
+
+	ret = 1;
+	start = src;
+	*dest++ = start;
+	while ((start = next_paragraph(start))) {
+		assert(*(start - 1) == NL);
+		*dest++ = start;
+		ret++;
+	}
+
+	assert(start == NULL); 
+	*dest = start;
+	return (ret);
 }
 
