@@ -13,6 +13,7 @@ int		main(int argc, const char *argv[])
 	const char	*pars[MAXLINE];
 	const char	*cols[MAXLINE];
 	const char	**par_pt;
+	const char	**col_pt;
 	int			arg;
 
 	if (argc < 2)
@@ -25,21 +26,46 @@ int		main(int argc, const char *argv[])
 		set_paragraph(pars, argv[arg++]);
 		par_pt = pars;
 		while (*(par_pt + 1)) {
-			set_column(cols, *par_pt, *(par_pt + 1) - *par_pt);
+			col_pt = cols;
+			while (*(col_pt + 1)) {
+				col_pt++;
+			}
 			par_pt++;
 		}
 		set_column(cols, *par_pt, strlen(*(par_pt)));
-
+		col_pt = cols;
+		while (*(col_pt + 1)) {
+			col_pt++;
+		}
 		assert(*(par_pt + 1) == NULL);
+		
 	}
 	return (0);
 }
 
 size_t	set_column(const char **cols, const char *src, size_t srclen)
 {
+	size_t		ret;
+	ssize_t		offset;
+	const char	*colend;
+	const char	*colnext;
+
+	ret = 0;
 	*cols = src;
-	write(STDOUT_FILENO, "CALL set_col:\n", 14);
-	return write(STDOUT_FILENO, src, srclen);
+	while (srclen > 0 && (offset = next_column(*(cols + ret))) > 0) {
+		srclen -= (size_t)offset;
+		colend = *(cols + ret++) + offset;
+		colnext	= colend + 1;
+		assert(*colend == '.');
+		assert(*colnext == ' '|| *colnext == '\t');
+		*(cols + ret) = colnext;
+	}
+	*(cols + ret++) = NULL;
+	int	lens[1] = {srclen};
+	fstring("left :%d", lens);
+	assert(srclen == 0);
+
+	return (ret);
 }
 
 size_t	set_paragraph(const char **dest, const char *src)

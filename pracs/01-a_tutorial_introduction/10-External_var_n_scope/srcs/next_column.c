@@ -6,16 +6,14 @@ ssize_t next_column(const char *src)
 	char ch;
 
 	i = 0;
-	
-	while ((ch = *(src + i)) && ch != '.' && ch != '\n')
+	while ((ch = *(src + i)) > 0) {
+		if (ch == '.') {
+			if ((ch = *(src + i + 1)) == ' ' || ch == '\t')
+				return (i);
+		} 
 		i++;
+	}
 
-	if (ch == '.') {
-		while ((ch = *(src + i)) != '.')
-			i++;
-	} else
-		i = -1;
-
-	return (i);
+	return (-1);
 }
 
