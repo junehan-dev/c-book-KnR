@@ -3,10 +3,15 @@ CFLAGS			= -Wall -Werror -Wextra
 NAME			= ft_extern.a
 PROGRAMS		= print_longest \
 				detab \
-				entab
+				entab \
+				fold
 OBJECTS			= srcs/copy.o \
 				srcs/get_line.o \
-				srcs/fstring.o
+				srcs/fstring.o \
+				srcs/next_paragraph.o \
+				srcs/next_column.o \
+				srcs/next_nonblank.o 
+
 .DEFAULT_GOAL	:= all
 
 .PHONY: all
@@ -42,6 +47,10 @@ detab:
 entab:
 	$(CC) $(CFLAGS) -Iincludes srcs/$@.c $(NAME) -o $@
 
+.PHONY: fold
+fold:
+	$(CC) $(CFLAGS) -Iincludes srcs/$@.c $(NAME) -o $@
+	
 .PHONY: srcs/copy.o
 srcs/copy.o:
 	$(CC) $(CFLAGS) -c srcs/copy.c -o $@
@@ -53,3 +62,16 @@ srcs/get_line.o:
 .PHONY: srcs/fstring.o
 srcs/fstring.o:
 	$(CC) $(CFLAGS) -c srcs/fstring.c -o $@
+
+.PHONY: srcs/next_paragraph.o
+srcs/next_paragraph.o:
+	$(CC) $(CFLAGS) -c srcs/next_paragraph.c -o $@
+
+.PHONY: srcs/next_column.o 
+srcs/next_column.o:
+	$(CC) $(CFLAGS) -c srcs/next_column.c -o $@
+
+.PHONY: srcs/next_nonblank.o 
+srcs/next_nonblank.o:
+	$(CC) $(CFLAGS) -c srcs/next_nonblank.c -o $@
+

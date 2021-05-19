@@ -18,6 +18,7 @@ Procedure
 
 Exercise 1-21
 ^^^^^^^^^^^^^
+Question
    Write a Program ``entab``
       Replaces strings of blanks by the minimum number of tabs and blanks to achieve the same spacing.
 
@@ -29,11 +30,21 @@ Procedure
 
 Exercise 1-22
 ^^^^^^^^^^^^^
-   
+Question
+   Write a prgram to ``fold`` long input lines into two or more shorter lines.
+      Fold after the last non-blank character that occurs before the n-th column of input.
+      Make program does something intelligent with very long lines, and if there are no blanks or tabs before the specified column.
+
+Scenario
+   1. ``const char* get_column(const char *str, size_t nth)`` to get column
+      - column verified by dot(.) mark.
+   #. check dot+1 character
+      - if dot+1 == BLANK_TYPE: insert NL and remove all blanks. 
+      - else(char or EOF or Nullterminate): alloc new line from there.
+   #. May be not allocate, but split. and no manipulates but pointer array with NULL-Termination.
 
 Exercise 1-23
 ^^^^^^^^^^^^^
 
 Exercise 1-24
 ^^^^^^^^^^^^^
-
