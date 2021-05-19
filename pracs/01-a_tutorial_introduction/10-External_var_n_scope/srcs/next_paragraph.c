@@ -5,14 +5,12 @@ const char	*next_paragraph(const char *src)
 	size_t	i;
 
 	i = 0;
-	if (!*src || *src == -1)
-		return (NULL);
-
 	while (*(src + i) && *(src + i) != '\n')
 		i++;
 
-	if (*(src + i) == '\n')
+	if (*(src + i) == '\n' && *(src + i + 1) != '\0')
 		return (src + i + 1);
-	return (src + i);
+
+	return (NULL);
 }
 
