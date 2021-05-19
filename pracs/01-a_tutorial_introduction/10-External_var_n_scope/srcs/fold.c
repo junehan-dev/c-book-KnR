@@ -22,9 +22,13 @@ int		main(int argc, const char *argv[])
 		set_paragraph(paras, argv[arg++]);
 		para_pt = paras;
 		while (*para_pt) {
-			write(STDOUT_FILENO, *para_pt, *(para_pt + 1) - *para_pt - 1);
+			write(STDOUT_FILENO, *para_pt, *(para_pt + 1) - *para_pt);
+			if (!**para_pt)
+				write(STDOUT_FILENO, "\\NULL", 5);
+
 			para_pt++;
 		}
+		assert(*para_pt == NULL);
 	}
 	return (0);
 }
@@ -39,7 +43,11 @@ size_t	set_paragraph(const char **dest, const char *src)
 	start = src;
 	*dest++ = start;
 	while ((start = next_paragraph(start))) {
-		assert(*(start - 1) == NL);
+		if (*start)
+			assert(*(start - 1) == NL);
+		else 
+			assert(!*(start));
+
 		*dest++ = start;
 		ret++;
 	}
