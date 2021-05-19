@@ -6,11 +6,13 @@
 #define NL	'\n'
 
 size_t	set_paragraph(const char **dest, const char *src);
+size_t	set_column(const char **dest, const char *src, size_t srclen);
 
 int		main(int argc, const char *argv[])
 {
-	const char	*paras[MAXLINE];
-	const char	**para_pt;
+	const char	*pars[MAXLINE];
+	const char	*cols[MAXLINE];
+	const char	**par_pt;
 	int			arg;
 
 	if (argc < 2)
@@ -20,18 +22,24 @@ int		main(int argc, const char *argv[])
 
 	arg = 1;
 	while (arg < argc) {
-		set_paragraph(paras, argv[arg++]);
-		para_pt = paras;
-		while (*(para_pt + 1)) {
-			write(STDOUT_FILENO, *para_pt, *(para_pt + 1) - *para_pt - 1);
-			para_pt++;
+		set_paragraph(pars, argv[arg++]);
+		par_pt = pars;
+		while (*(par_pt + 1)) {
+			set_column(cols, *par_pt, *(par_pt + 1) - *par_pt);
+			par_pt++;
 		}
+		set_column(cols, *par_pt, strlen(*(par_pt)));
 
-		write(STDOUT_FILENO, "\nLASTP: ", 8);
-		write(STDOUT_FILENO, *para_pt, strlen(*para_pt));
-		assert(*(para_pt + 1) == NULL);
+		assert(*(par_pt + 1) == NULL);
 	}
 	return (0);
+}
+
+size_t	set_column(const char **cols, const char *src, size_t srclen)
+{
+	*cols = src;
+	write(STDOUT_FILENO, "CALL set_col:\n", 14);
+	return write(STDOUT_FILENO, src, srclen);
 }
 
 size_t	set_paragraph(const char **dest, const char *src)
