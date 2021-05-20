@@ -46,23 +46,29 @@ int		main(int argc, const char *argv[])
 size_t	set_column(const char **cols, const char *src, size_t srclen)
 {
 	size_t		ret;
-	ssize_t		offset;
+	size_t		offset;
+	ssize_t		left;
 	const char	*colend;
 	const char	*colnext;
+	int	lens[2] = {0};
 
 	ret = 0;
 	*cols = src;
-	while (srclen > 0 && (offset = next_column(*(cols + ret))) > 0) {
-		srclen -= (size_t)offset;
+	left = (ssize_t)srclen;
+	lens[0] = srclen;
+	while (left > 0 && (offset = next_column(*(cols + ret)))) {
+		left -= (ssize_t)offset;
+		lens[1] = offset;
+		fstring("originPlen:%d, offset :%d\n", lens);
 		colend = *(cols + ret++) + offset;
 		colnext	= colend + 1;
-		assert(*colend == '.');
-		assert(*colnext == ' '|| *colnext == '\t');
+		assert(*colend == '.' || !*colend || *colend == '\n');
+		assert(*colnext == ' '|| *colnext == '\t' || *colnext == '\n' || !*colnext);
 		*(cols + ret) = colnext;
 	}
 	*(cols + ret++) = NULL;
-	int	lens[1] = {srclen};
-	fstring("left :%d", lens);
+	lens[1] = left;
+	fstring("originPlen:%d, left :%d\n", lens);
 	assert(srclen == 0);
 
 	return (ret);
