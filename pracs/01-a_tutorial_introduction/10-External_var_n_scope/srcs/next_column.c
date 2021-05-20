@@ -1,23 +1,26 @@
 #include <unistd.h>
 
-size_t next_column(const char *src)
+int			is_col_delimiter(char next)
+{
+	if (next == ' ' || next == '\t')
+		return (1);
+
+	return (0);
+}
+
+const char	*next_column(const char *src)
 {
 	size_t	i;
-	char 	ch;
+	char	ch;
 
 	i = 0;
-	if ((ch = *src) == '\n')
-		return (1);
-	while (ch > 0) {
-		if (ch == '.') {
-			if ((ch = *(src + i + 1)) == ' ' || ch == '\t' || ch == '\n')
-				return (i);
-		} else if (ch == '\n') {
-			return (i);
-		}
-		ch = *(src + ++i);
-	}
 
-	return (i);
+	while ((ch = *(src + i)) != '.' && ch && ch != '\n')
+		i++;
+
+	if (ch == '.' && is_col_delimiter(*(src + i + 1)))
+		return (src + i + 1);
+
+	return (NULL);
 }
 

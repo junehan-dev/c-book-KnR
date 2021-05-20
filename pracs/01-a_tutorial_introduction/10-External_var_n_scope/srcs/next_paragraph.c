@@ -3,14 +3,19 @@
 const char	*next_paragraph(const char *src)
 {
 	size_t	i;
+	char	ch;
 
 	i = 0;
-	while (*(src + i) && *(src + i) != '\n')
+	if ((ch = *(src + i)) == '\0' || ch == -1)
+		return (NULL);
+
+	while (ch && ch != '\n') {
 		i++;
+		ch = *(src + i);
+	}
+	if (!ch || ch == -1)
+		return (NULL);
 
-	if (*(src + i) == '\n' && *(src + i + 1) != '\0')
-		return (src + i + 1);
-
-	return (NULL);
+	return (src + i + 1);
 }
 
