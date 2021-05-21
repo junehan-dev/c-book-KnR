@@ -26,6 +26,7 @@ int		main(int argc, const char *argv[])
 	while (arg < argc) {
 		set_paragraph(pars, argv[arg++]);
 		par_pt = pars;
+		par_col_num[0] = 0;
 		while (*(par_pt + 1)) {
 			par_col_num[0]++;
 			set_column(cols, *par_pt);
@@ -40,10 +41,12 @@ int		main(int argc, const char *argv[])
 			assert(!*(col_pt + 1));
 			par_col_num[1]++;
 			fstring("\nP:%d,C:%d -",  par_col_num);
-			write(STDOUT_FILENO, *col_pt, strlen(*col_pt));
+			write(STDOUT_FILENO, *col_pt, strchr(*col_pt, '\n') - *col_pt);
 			par_pt++;
 		}
+		write(STDOUT_FILENO, "\n--last P start--", 17);
 
+		par_col_num[0]++;
 		assert(!*(par_pt + 1));	
 		set_column(cols, *par_pt);
 		col_pt = cols;
@@ -57,7 +60,8 @@ int		main(int argc, const char *argv[])
 		assert(!*(col_pt + 1));
 		par_col_num[1]++;
 		fstring("\nP:%d,C:%d -",  par_col_num);
-		write(STDOUT_FILENO, col_pt, strlen(*col_pt));
+		write(STDOUT_FILENO, *col_pt, strlen(*col_pt));
+		write(STDOUT_FILENO, "\n--last C end--", 15);
 	}
 	return (0);
 }
