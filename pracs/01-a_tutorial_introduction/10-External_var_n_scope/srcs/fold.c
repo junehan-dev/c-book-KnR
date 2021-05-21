@@ -6,7 +6,7 @@
 #define NL	'\n'
 
 size_t	set_paragraph(const char **dest, const char *src);
-size_t	set_column(const char **dest, const char *src, size_t srclen);
+size_t	set_column(const char **dest, const char *src);
 
 int		main(int argc, const char *argv[])
 {
@@ -14,6 +14,7 @@ int		main(int argc, const char *argv[])
 	const char	*cols[MAXLINE];
 	const char	**par_pt;
 	const char	**col_pt;
+	int			par_col_num[2] = {0};
 	int			arg;
 
 	if (argc < 2)
@@ -26,51 +27,56 @@ int		main(int argc, const char *argv[])
 		set_paragraph(pars, argv[arg++]);
 		par_pt = pars;
 		while (*(par_pt + 1)) {
+			par_col_num[0]++;
+			set_column(cols, *par_pt);
 			col_pt = cols;
+			par_col_num[1] = 0;
 			while (*(col_pt + 1)) {
+				par_col_num[1]++;
+				fstring("\nP:%d,C:%d -",  par_col_num);
+				write(STDOUT_FILENO, *col_pt, *(col_pt + 1) - *col_pt);
 				col_pt++;
 			}
+			assert(!*(col_pt + 1));
+			par_col_num[1]++;
+			fstring("\nP:%d,C:%d -",  par_col_num);
+			write(STDOUT_FILENO, *col_pt, strlen(*col_pt));
 			par_pt++;
 		}
-		set_column(cols, *par_pt, strlen(*(par_pt)));
+
+		assert(!*(par_pt + 1));	
+		set_column(cols, *par_pt);
 		col_pt = cols;
+		par_col_num[1] = 0;
 		while (*(col_pt + 1)) {
+			par_col_num[1]++;
+			fstring("\nP:%d,C:%d -",  par_col_num);
+			write(STDOUT_FILENO, *col_pt, *(col_pt + 1) - *col_pt);
 			col_pt++;
 		}
-		assert(*(par_pt + 1) == NULL);
-		
+		assert(!*(col_pt + 1));
+		par_col_num[1]++;
+		fstring("\nP:%d,C:%d -",  par_col_num);
+		write(STDOUT_FILENO, col_pt, strlen(*col_pt));
 	}
 	return (0);
 }
 
-size_t	set_column(const char **cols, const char *src, size_t srclen)
+size_t	set_column(const char **cols, const char *src)
 {
 	size_t		ret;
-	size_t		offset;
-	ssize_t		left;
-	const char	*colend;
 	const char	*colnext;
-	int	lens[2] = {0};
+	const char	*colend;
 
 	ret = 0;
-	*cols = src;
-	left = (ssize_t)srclen;
-	lens[0] = srclen;
-	while (left > 0 && (offset = next_column(*(cols + ret)))) {
-		left -= (ssize_t)offset;
-		lens[1] = offset;
-		fstring("originPlen:%d, offset :%d\n", lens);
-		colend = *(cols + ret++) + offset;
-		colnext	= colend + 1;
+	*(cols + ret) = src;
+	while ((colnext = next_column(*(cols + ret++)))) {
+		colend = colnext - 1;
 		assert(*colend == '.' || !*colend || *colend == '\n');
-		assert(*colnext == ' '|| *colnext == '\t' || *colnext == '\n' || !*colnext);
 		*(cols + ret) = colnext;
 	}
-	*(cols + ret++) = NULL;
-	lens[1] = left;
-	fstring("originPlen:%d, left :%d\n", lens);
-	assert(srclen == 0);
-
+	*(cols + ret) = colnext;
+	assert(*(cols + ret) == NULL);
 	return (ret);
 }
 
