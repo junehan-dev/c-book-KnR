@@ -2,11 +2,13 @@
 #include <assert.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 #include "ft_extern.h"
 #define NL	'\n'
 
 size_t	set_paragraph(const char **dest, const char *src);
 size_t	set_column(const char **dest, const char *src);
+char	*fold(char *src);
 
 int		main(int argc, const char *argv[])
 {
@@ -14,73 +16,52 @@ int		main(int argc, const char *argv[])
 	const char	*cols[MAXLINE];
 	const char	**par_pt;
 	const char	**col_pt;
-	int			par_col_num[2] = {0};
-	int			arg;
+	int			i;
 
 	if (argc < 2)
 		return (0);
 
-	assert(argc > 1);
-
-	arg = 1;
-	while (arg < argc) {
-		set_paragraph(pars, argv[arg++]);
-		par_pt = pars;
-		par_col_num[0] = 0;
-		while (*(par_pt + 1)) {
-			par_col_num[0]++;
-			set_column(cols, *par_pt);
-			col_pt = cols;
-			par_col_num[1] = 0;
-			while (*(col_pt + 1)) {
-				par_col_num[1]++;
-				fstring("\nP:%d,C:%d -",  par_col_num);
-				write(STDOUT_FILENO, *col_pt, *(col_pt + 1) - *col_pt);
-				col_pt++;
-			}
-			assert(!*(col_pt + 1));
-			par_col_num[1]++;
-			fstring("\nP:%d,C:%d -",  par_col_num);
-			write(STDOUT_FILENO, *col_pt, strchr(*col_pt, '\n') - *col_pt);
-			par_pt++;
-		}
-		write(STDOUT_FILENO, "\n--last P start--", 17);
-
-		par_col_num[0]++;
-		assert(!*(par_pt + 1));	
+	i = atoi(argv[2]);
+	set_paragraph(pars, argv[1]);
+	par_pt = pars;
+	while (*(par_pt + 1) && i) {
 		set_column(cols, *par_pt);
 		col_pt = cols;
-		par_col_num[1] = 0;
-		while (*(col_pt + 1)) {
-			par_col_num[1]++;
-			fstring("\nP:%d,C:%d -",  par_col_num);
-			write(STDOUT_FILENO, *col_pt, *(col_pt + 1) - *col_pt);
+		while (*(col_pt + 1) && i) {
+			i--;
 			col_pt++;
 		}
-		assert(!*(col_pt + 1));
-		par_col_num[1]++;
-		fstring("\nP:%d,C:%d -",  par_col_num);
-		write(STDOUT_FILENO, *col_pt, strlen(*col_pt));
-		write(STDOUT_FILENO, "\n--last C end--", 15);
+		par_pt++;
 	}
+	if (i) {
+		set_column(cols, *par_pt);
+		col_pt = cols;
+		while (*(col_pt + 1) && i--)
+			col_pt++;
+	}
+
+	write(STDOUT_FILENO, *col_pt, next_column(*col_pt) - *col_pt);
+	fold((char *)((*col_pt) - 1));
 	return (0);
+}
+
+char	*fold(char *src)
+{
+	*src = '\n';
+	write(STDOUT_FILENO, src, next_column(src) - src);
+	return (src);
 }
 
 size_t	set_column(const char **cols, const char *src)
 {
 	size_t		ret;
 	const char	*colnext;
-	const char	*colend;
 
 	ret = 0;
 	*(cols + ret) = src;
-	while ((colnext = next_column(*(cols + ret++)))) {
-		colend = colnext - 1;
-		assert(*colend == '.' || !*colend || *colend == '\n');
+	while ((colnext = next_column(*(cols + ret++))))
 		*(cols + ret) = colnext;
-	}
 	*(cols + ret) = colnext;
-	assert(*(cols + ret) == NULL);
 	return (ret);
 }
 
@@ -93,11 +74,9 @@ size_t	set_paragraph(const char **dest, const char *src)
 	start = src;
 	*dest++ = start;
 	while ((start = next_paragraph(start))) {
-		assert(*(start - 1) == NL);
 		*dest++ = start;
 		ret++;
 	}
-	assert(start == NULL); 
 	*dest = start;
 	return (ret);
 }
