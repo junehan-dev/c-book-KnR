@@ -2,44 +2,54 @@
 #include <unistd.h>
 #include <string.h>
 
+char	*strcomment(const char *haystack, const char *needle);
 char	*remove_comment(char *src);
 int		main(int argc, const char *argv[])
 {
-	char 	origin[] = "this is /* comment */ string /* yet */.";
+	char	new[40] = {0};
+	char 	origin[40] = "this is /* comment */ string /* yet */.";
+	char	*found;
 	size_t	len;
 	size_t	last;
 	size_t	i;
 
 	len = strlen(origin);
-	remove_comment(origin);
+	while ((found = commment_strcomment))
+	found = comment(origin);
+	assert(ret == (origin + strlen(origin)));
+	write(STDOUT_FILENO, "RESULT: ", 8);
 	last = 0;
 	
+	i = 0;
 	while (i < len) {
 		while (!origin[i] && i < len)
 			i++;
-		origin[last++] = origin[i++];
+		new[last++] = origin[i++];
 	}
-	write(STDOUT_FILENO, origin, strlen(origin));
+	write(STDOUT_FILENO, new, strlen(new));
+	write(STDOUT_FILENO, "\n", 1);
 }
 
-ssize_t	comment_strstr(const char *haystack, const char *needle)
+char	*strcomment(const char *haystack, const char *needle)
 {
-	char		*src_pt;
+	char	*src_pt;
 	static char qute = 0;
 
-	src_pt = src;
+	src_pt = (char *)haystack;
 	while (*src_pt) {
 		if (*src_pt++ == *needle && !qute) {
 			if (*(src_pt) == *(needle + 1))
-				return (src_pt - src - 1);
-		} else if (*src_pt == '\\' && *(src_pt + 1 == '"')){
+				return (src_pt - 1);
+		} else if (*src_pt == '\\' && *(src_pt + 1) == '"'){
 			src_pt += 2;
+		} else if (*src_pt == '\\' && !*(src_pt + 1)) {
+			return (-1);
 		} else if (*src_pt++ == '"') {
 			qute = ~qute;
 		} else
 			src_pt++;
 	}
-	return (-1);
+	return (NULL);
 }
 
 size_t	del_content(char *start, char *end)
@@ -52,33 +62,3 @@ size_t	del_content(char *start, char *end)
 	return (ret);
 }
 
-char	*remove_comment(char *src)
-{
-	static char		nend = 0;
-	ssize_t			start;
-	ssize_t			end;
-	char			*ret;
-
-	ret = src + strlen(src);
-	if (!nend) {
-		if ((start = comment_strstr((const char *)src, "/*")) != -1) {
-			end = comment_strstr((const char *)src + start);
-			if (end != -1) {
-				end += 2;
-				del_content(src + start, src + end);
-				ret = start + end;
-			} else
-				ret = (src + start + del_content(src + start, src + start + strlen(src + start)));
-				nend = 1;
-		}
-	} else {
-		end = comment_strstr((const char *)src);
-		if (end != -1) {
-			ret = src + del_content(src, src + end);
-		} else {
-			ret = src + del_content(src, src + strlen(src));
-			nend = 1;
-		}
-	}
-	return (ret);
-}
