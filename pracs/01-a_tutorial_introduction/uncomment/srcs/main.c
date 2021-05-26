@@ -22,19 +22,19 @@ int		main(int argc, const char *argv[])
 	write(STDOUT_FILENO, origin, strlen(origin));
 }
 
-ssize_t	comment_chr(char *src, )
+ssize_t	comment_strstr(const char *haystack, const char *needle)
 {
 	char		*src_pt;
 	static char qute = 0;
 
 	src_pt = src;
 	while (*src_pt) {
-		if (*src_pt == '/' && qute) {
-			if (*(++src_pt) == '*')
-				return (src_pt - src);
+		if (*src_pt++ == *needle && !qute) {
+			if (*(src_pt) == *(needle + 1))
+				return (src_pt - src - 1);
 		} else if (*src_pt == '\\' && *(src_pt + 1 == '"')){
 			src_pt += 2;
-		} else if (*src_pt == '"') {
+		} else if (*src_pt++ == '"') {
 			qute = ~qute;
 		} else
 			src_pt++;
@@ -42,30 +42,43 @@ ssize_t	comment_chr(char *src, )
 	return (-1);
 }
 
+size_t	del_content(char *start, char *end)
+{
+	size_t	ret;
+
+	ret = 0;
+	while ((start + ret) < end)
+		*(start + ret++) = '\0';
+	return (ret);
+}
+
 char	*remove_comment(char *src)
 {
-	size_t		i;
-	char		ch;
-	static char	qute = 0;
+	static char		nend = 0;
+	ssize_t			start;
+	ssize_t			end;
+	char			*ret;
 
-	i = 0;
-	while ((ch = *(src + i))) {
-		if (ch == '"') {
-			qute = ~qute;
-			i++;
+	ret = src + strlen(src);
+	if (!nend) {
+		if ((start = comment_strstr((const char *)src, "/*")) != -1) {
+			end = comment_strstr((const char *)src + start);
+			if (end != -1) {
+				end += 2;
+				del_content(src + start, src + end);
+				ret = start + end;
+			} else
+				ret = (src + start + del_content(src + start, src + start + strlen(src + start)));
+				nend = 1;
+		}
+	} else {
+		end = comment_strstr((const char *)src);
+		if (end != -1) {
+			ret = src + del_content(src, src + end);
 		} else {
-			if (!qute && ch == '/') {
-				if (*(src + i + 1) == '*') {
-					while (*(src + i) != '*' && *(src + i + 1) != '/' && *(src + i))
-					 	*(src + i++) = 'a';
-					if (*(src + i))
-						*(src + i++) = 'a';
-					*(src + i) = '\0';
-				}
-			} else {
-				i++;
-			}
+			ret = src + del_content(src, src + strlen(src));
+			nend = 1;
 		}
 	}
-	return (src);
+	return (ret);
 }
