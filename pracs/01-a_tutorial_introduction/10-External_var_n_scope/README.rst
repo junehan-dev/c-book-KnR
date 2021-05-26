@@ -45,6 +45,9 @@ Scenario
 
 Exercise 1-23
 ^^^^^^^^^^^^^
+   On uncomment-directory_
+
+.. _uncomment-directory: ../uncomment
 
 Exercise 1-24
 ^^^^^^^^^^^^^
