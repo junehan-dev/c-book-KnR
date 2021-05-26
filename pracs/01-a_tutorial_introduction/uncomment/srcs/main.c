@@ -2,52 +2,54 @@
 #include <unistd.h>
 #include <string.h>
 
-char	*strcomment(const char *haystack, const char *needle);
-char	*remove_comment(char *src);
+const char	*strcomment(const char *haystack, const char *needle);
 int		main(int argc, const char *argv[])
 {
-	char	new[40] = {0};
-	char 	origin[40] = "this is /* comment */ string /* yet */.";
-	char	*found;
-	size_t	len;
-	size_t	last;
-	size_t	i;
+	char		new[64] = {0};
+	char 		origin[64] = "this is /* comment */ string /* yetdone */.\0";
+	const char	*found;
+	const char	*end;
 
-	len = strlen(origin);
-	while ((found = commment_strcomment))
-	found = comment(origin);
-	assert(ret == (origin + strlen(origin)));
-	write(STDOUT_FILENO, "RESULT: ", 8);
-	last = 0;
-	
-	i = 0;
-	while (i < len) {
-		while (!origin[i] && i < len)
-			i++;
-		new[last++] = origin[i++];
+	found = strcomment((const char*)origin, "/*");
+	while (found) {
+		end = strcomment(found, "*/");
+		assert((end - found) == 11);
+		write(STDOUT_FILENO, found, end - found + 2);
+		write(STDOUT_FILENO, "\n", 1);
+		found = strcomment(found + 1, "/*");
 	}
-	write(STDOUT_FILENO, new, strlen(new));
-	write(STDOUT_FILENO, "\n", 1);
+	return(0);
 }
 
-char	*strcomment(const char *haystack, const char *needle)
+const char	*strcomment(const char *haystack, const char *needle)
 {
-	char	*src_pt;
+	const char	*src_pt;
+	size_t		len;
 	static char qute = 0;
 
-	src_pt = (char *)haystack;
+	len = strlen(needle);
+	src_pt = haystack;
 	while (*src_pt) {
-		if (*src_pt++ == *needle && !qute) {
-			if (*(src_pt) == *(needle + 1))
-				return (src_pt - 1);
-		} else if (*src_pt == '\\' && *(src_pt + 1) == '"'){
-			src_pt += 2;
-		} else if (*src_pt == '\\' && !*(src_pt + 1)) {
-			return (-1);
-		} else if (*src_pt++ == '"') {
-			qute = ~qute;
-		} else
-			src_pt++;
+		if (qute) {
+			while (*src_pt != '"' && *src_pt)
+				src_pt++;
+
+			if (*src_pt == '"')
+				qute = ~qute;
+
+		} else {
+			while (*(src_pt) && (*src_pt != *needle) && (*src_pt != '"'))
+				src_pt++;
+
+			if (*src_pt == *needle) {
+				if(!strncmp(src_pt, needle, len))
+					return (src_pt);
+				src_pt++;
+			} else if (*src_pt == '"') {
+				qute = ~qute;
+				src_pt++;
+			}
+		}
 	}
 	return (NULL);
 }
