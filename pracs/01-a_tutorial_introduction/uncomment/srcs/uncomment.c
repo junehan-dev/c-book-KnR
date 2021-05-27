@@ -1,9 +1,10 @@
 #include "uncomment.h"
+#include <assert.h>
 
 //int		main(int argc, const char *argv[])
 int		main(void)
 {
-	char 		origin[64] = "this is /* comment */ string /* yetdone */.\0";
+	char 		origin[64] = "this is \"/* comment */\" string /* yetdone */.\0";
 	const char	*found;
 	const char	*end;
 

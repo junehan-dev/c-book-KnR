@@ -13,8 +13,8 @@ const char	*strcomment(const char *haystack, const char *needle)
 			while (*src_pt != '"' && *src_pt)
 				src_pt++;
 
-			if (*src_pt == '"')
-				qute = ~qute;
+			if (*src_pt++ == '"')
+				qute = 0;
 
 		} else {
 			while (*(src_pt) && (*src_pt != *needle) && (*src_pt != '"'))
@@ -25,7 +25,7 @@ const char	*strcomment(const char *haystack, const char *needle)
 					return (src_pt);
 				src_pt++;
 			} else if (*src_pt == '"') {
-				qute = ~qute;
+				qute = 1;
 				src_pt++;
 			}
 		}
