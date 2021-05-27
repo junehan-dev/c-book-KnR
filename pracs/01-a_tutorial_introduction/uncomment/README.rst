@@ -16,3 +16,24 @@ Procedure
    #. mark there and remove it.
    #. else? dont do anything.
 
+
+.. code-block:: c
+
+   const char	*strcomment(const char *haystack, const char *needle);
+   size_t		del_content(char *start, char *end);
+
+``const char *strcomment``::
+
+   DESCRIPTION
+      A function find needle start without DQ(doublequote) occurence.
+
+   RETURN
+      A pointer start on needle, NULL on not found.
+
+``size_t	del_conent``::
+
+   DESCRIPTION
+      A function works like bzero, but work with 2 pointers.
+
+   RETURN
+      byte counts set zeroed from start to end.
