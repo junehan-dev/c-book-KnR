@@ -9,4 +9,4 @@ ft_randlib
 
 ft_htoi
 -------
-  A program decodes ``const char *src`` written in hex and convert it to integer value.
+   A program decodes ``const char *src`` written in hex and convert it to integer value.
