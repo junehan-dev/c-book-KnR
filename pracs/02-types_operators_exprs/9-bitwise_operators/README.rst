@@ -10,3 +10,10 @@ ft_setbits
    Signature 
       ``unsigned int	ft_setbits(unsigned int src, size_t offset, size_t len, int mask);``
 
+ft_invert
+---------
+   ``ft_invert(x, p, n)``
+      A funciton returns ``x``
+      that, begin at position ``p`` for ``n`` bits inverted.
+      leaving other bits unchanged.
+
