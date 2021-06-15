@@ -29,7 +29,7 @@ ft_invert
    ENHENCED
       - various bit length can be handled by parameter ``maxlen``
       - ``offset`` 0 and with ``len`` handled without if-statement.
-      - not mid + mid
+      - (not mid) + mid
 
 ft_rightrot
 -----------
@@ -40,4 +40,8 @@ ft_rightrot
    Signature
       ``int ft_rightrot(int src, size_t cnt);``
 
-   *Implemented based on above functions.*
+   IMPLEMENTS
+      - *Implemented based on above functions.*
+      - Internally converts ``src`` to ``unsigned int`` 
+         - because MSB keeps while on shifting.
+      - r_shfited | (mov_start *:(r_shift_losses -> mov_start)* )
