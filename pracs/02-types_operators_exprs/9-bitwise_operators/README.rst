@@ -1,4 +1,4 @@
-BDOCitwise operators
+Bitwise operators
 =================
 
 ft_setbits
@@ -24,7 +24,7 @@ ft_invert
       leaving other bits unchanged.
 
    Signature
-      ``unsigned int ft_invert(unsigned int src, size_t offset, size_t len, size_t maxlen)``
+      ``unsigned int ft_invert(unsigned int src, size_t offset, size_t len, size_t maxlen);``
 
    ENHENCED
       - various bit length can be handled by parameter ``maxlen``
@@ -36,3 +36,8 @@ ft_rightrot
    ``ft_rightrot(x, n)``
       A function returns ``x``
       integer x rotated to the right by n bit positions.
+
+   Signature
+      ``int ft_rightrot(int src, size_t cnt);``
+
+   *Implemented based on above funcitons.*
