@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:14:52 by junehan           #+#    #+#             */
-/*   Updated: 2021/06/15 12:36:42 by junehan          ###   ########.fr       */
+/*   Updated: 2021/06/15 12:47:43 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ unsigned int	ft_setbits(unsigned int src, size_t offset, size_t len, int mask)
 		offset_end += 1 << (32 - offset);
 	
 	mid_end = 1 << (32 - offset - len);
-	ret = 0;
-	ret += src & ~(offset_end - 1);
+	ret = src & ~(offset_end - 1);
 	ret += src & (mid_end - 1);
 	if (mask)
 		ret += ~(mid_end - 1) - ~(offset_end - 1);
