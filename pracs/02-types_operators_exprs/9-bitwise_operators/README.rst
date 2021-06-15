@@ -1,4 +1,4 @@
-Bitwise operators
+BDOCitwise operators
 =================
 
 ft_setbits
@@ -30,3 +30,9 @@ ft_invert
       - various bit length can be handled by parameter ``maxlen``
       - ``offset`` 0 and with ``len`` handled without if-statement.
       - not mid + mid
+
+ft_rightrot
+-----------
+   ``ft_rightrot(x, n)``
+      A function returns ``x``
+      integer x rotated to the right by n bit positions.
