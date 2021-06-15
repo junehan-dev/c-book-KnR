@@ -40,4 +40,4 @@ ft_rightrot
    Signature
       ``int ft_rightrot(int src, size_t cnt);``
 
-   *Implemented based on above funcitons.*
+   *Implemented based on above functions.*
