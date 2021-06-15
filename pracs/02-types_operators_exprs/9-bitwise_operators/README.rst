@@ -24,9 +24,20 @@ ft_invert
       leaving other bits unchanged.
 
    Signature
-      ``unsigned int ft_invert(unsigned int src, size_t offset, size_t len, size_t maxlen)``
+      ``unsigned int ft_invert(unsigned int src, size_t offset, size_t len, size_t maxlen);``
 
    ENHENCED
       - various bit length can be handled by parameter ``maxlen``
       - ``offset`` 0 and with ``len`` handled without if-statement.
       - not mid + mid
+
+ft_rightrot
+-----------
+   ``ft_rightrot(x, n)``
+      A function returns ``x``
+      integer x rotated to the right by n bit positions.
+
+   Signature
+      ``int ft_rightrot(int src, size_t cnt);``
+
+   *Implemented based on above funcitons.*
