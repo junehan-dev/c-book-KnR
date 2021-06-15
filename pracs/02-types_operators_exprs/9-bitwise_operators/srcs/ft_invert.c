@@ -1,38 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_invert.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/15 12:09:51 by junehan           #+#    #+#             */
+/*   Updated: 2021/06/15 12:09:59 by junehan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
-#include <stdio.h>
 
-unsigned int ft_invert(unsigned int src, size_t offset, size_t len)
+unsigned int ft_invert(unsigned int src, size_t offset, size_t bit_cnt, size_t len)
 {
-	unsigned int offset_start;
-	unsigned int len_start;
+	unsigned int left_end;
+	unsigned int mid_end;
 	unsigned int ret;
-	unsigned int len_mask;
-	unsigned int inverted_range;
+	unsigned int mid_mask;
+	unsigned int mid_inverted;
 
-	if (!len || (offset + len) > 32)
+	if (!bit_cnt || (offset + bit_cnt) > len)
 		return (src);
 
-	offset_start = 0;
+	left_end = 0;
 	if (offset)
-		offset_start = 1 << (32 - offset);
+		left_end = 1 << (len - offset);
+	mid_end = 1 << (len - offset - bit_cnt);
+	mid_mask = ~(mid_end - 1) - ~(left_end - 1);
+	mid_inverted = mid_mask & (~(src & mid_mask));
 
-	len_start = 1 << (32 - offset - len);
-	len_mask = (offset_start - 1 - len_start - 1);
-	inverted_range = (~(src & len_mask)) & len_mask;
-	
-	ret = src & (~(offset_start - 1));
-	ret += src & (len_start - 1);
-	ret += inverted_range;
-
+	ret = src & (~mid_mask);
+	ret += mid_inverted;
 	return (ret);
 }
 
-#include <assert.h>
-int main(void)
-{
-	int ret;
-	ret = ft_invert(0, 1, 1);
-	printf("ret:%d\n", ret);
-	assert(ret == (1 << 31));
-	
-}
