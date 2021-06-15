@@ -1,6 +1,7 @@
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
-OBJECTS			= srcs/ft_setbits.o
+OBJECTS			= srcs/ft_setbits.o \
+				srcs/ft_invert.o
 NAME			= ft_bits.a
 .DEFAULT_GOAL	:= all
 
@@ -26,3 +27,7 @@ re:	clean fclean all
 
 srcs/ft_setbits.o:
 	$(CC) $(CFLAGS) -c srcs/ft_setbits.c -o $@ 
+
+srcs/ft_invert.o:
+	$(CC) $(CFLAGS) -c srcs/ft_invert.c -o $@ 
+	
