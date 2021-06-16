@@ -8,5 +8,5 @@ ft_bitcount
 
    Question
       ``x &= (x - 1)`` deletes rightmost 1-bit in x.
-      Use this observation to write a faster version of *bitcount_legacy.*
+      Use this observation to write a faster version of *bitcount_OLD.*
 
