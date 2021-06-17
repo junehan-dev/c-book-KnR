@@ -28,3 +28,9 @@ CH02-Types, Operators, and Expressions
    *small number of rules*
       convert a "narrower" operand into a "wider" one without losing information.
 
+2.8-Increment and Decrement Operators
+-------------------------------------
+
+2.10-Assigment operators and expressions
+----------------------------------------
+
