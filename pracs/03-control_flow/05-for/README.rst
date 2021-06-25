@@ -11,5 +11,19 @@ ft_expand
    Signature
       ``size_t ft_expand(char *src, const char *dest)``
 
-   DESCRIPTION
+   Description
+      A function converts '-' sign connected with digits, or same case alphabet characters into expanded char string.
+
+	``int set_expand(char *dest, char start, char end)``
+      set string into dest, from start to end.
+      returns offset to after end character position.
+ 
+   ``int is_expandable(const char *src)``
+      check source is expandable or not.
+      uses is_sametype and, returns 0 or 1.
+
+   ``int is_sametype(const char s1, const char s2)``
+      determine src's connected two character is same type.
+      returns 0 or 1.
+
 
