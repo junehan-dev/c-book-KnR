@@ -6,54 +6,85 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 12:39:46 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/01 14:48:46 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/05 10:45:34 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+int		ft_itob(int n, char *dest, int base);
 
-size_t	set_base(char *dest, int base)
+int		main(int argc, const char *argv[])
 {
-	size_t		len;
+	int		n;
+	int		base;
+	char	origin[33];
+	int		ret;
+
+	base = (argc == 2) ? 2 : 0;
+	base = (argc == 3) ? atoi(argv[2]): base;
+	n = (base) ? atoi(argv[1]) : 0;
+	ret = (base && base == ft_itob(n, origin, base)) ? 0 : 1;
+	if (!ret)
+		printf("%d to %d is %s\n", n, base, origin);
+	return (ret);
+}
+
+char	set_bits(char *dest, int value)
+{
 	const char	keys[]	= "0123456789abcdef";
 	char		key;
 
-	key = (base < 0) ? keys[(~base)-1] : '\0';
-	base = (base < 0) ? ~base : base;
-
-/* //MORE
-	len = ((key == '1') || (key == '7')) ? 32 : 8;
-	len = (key == '7') ? 16 : len;
-	
-	*(dest + len) = '\0';
-
-	ret = len;
-	while (len--) {
-		*(dest + len) = key;
-	}
-*/
-	return (ret);
+	key = keys[value];
+	*dest = key;
+	return (key);
 }
 
 size_t	get_offset(int base)
 {
 	size_t	ret;
 
-	ret		= 0;
-	while ((base >>= 1))
-		ret++;
+	ret	= 0;
+	if (base <= 16)
+		while ((base >>= 1))
+			ret++;
 
 	return (ret);
 }
 
-void	ft_itob(int n, char *dest, int base)
+int		ft_itob(int n, char *dest, int base)
 {
-	size_t 		offset;
-	size_t		len;
-
+	size_t 			offset;
+	unsigned int	mask;
+	unsigned int	value;
+	
 	offset = get_offset(base);
 	if (offset) {
-		len = (n < 0) ? set_base(dest, ~base) : set_base(dest, base);
-		//MORE
+		mask = (32 % offset) ? (base - 1) << (32 - 32 % offset) : (base - 1) << (32 - offset);
+		value = n & mask;
+		n -= value;
+		if (value)
+			while ((value >> offset) > 0)
+				value >>= offset;
+
+		set_bits(dest++, value);
+		mask = (32 % offset) ? (base - 1) << (32 - offset - 32 % offset) : (base - 1) << (32 - offset * 2);
+		while (mask) {
+			value = n & mask;
+			n -= value;
+			if (value)
+				while ((value >> offset) > 0)
+					value >>= offset;
+
+			set_bits(dest++, value);
+			mask >>= offset;
+		}
+
+		*dest = '\0';
+		return (base);
 	}
+
+	return (0);
 }
+
