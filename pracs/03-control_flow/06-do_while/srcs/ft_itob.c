@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 12:39:46 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/02 12:39:54 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/05 10:45:34 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,36 @@ size_t	get_offset(int base)
 
 int		ft_itob(int n, char *dest, int base)
 {
-	size_t 			len;
+	size_t 			offset;
 	unsigned int	mask;
 	unsigned int	value;
 	
-	len	= get_offset(base); // 1,2,3,4
-	if (len) {
-		mask = (base - 1) << (32 - len);
+	offset = get_offset(base);
+	if (offset) {
+		mask = (32 % offset) ? (base - 1) << (32 - 32 % offset) : (base - 1) << (32 - offset);
+		value = n & mask;
+		n -= value;
+		if (value)
+			while ((value >> offset) > 0)
+				value >>= offset;
+
+		set_bits(dest++, value);
+		mask = (32 % offset) ? (base - 1) << (32 - offset - 32 % offset) : (base - 1) << (32 - offset * 2);
 		while (mask) {
-			value = mask & n;
+			value = n & mask;
+			n -= value;
 			if (value)
-				while (value >> len)
-					value >>= len;
+				while ((value >> offset) > 0)
+					value >>= offset;
+
 			set_bits(dest++, value);
-			mask >>= len;
+			mask >>= offset;
 		}
+
 		*dest = '\0';
 		return (base);
 	}
+
 	return (0);
 }
 
