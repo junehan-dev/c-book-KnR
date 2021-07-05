@@ -6,13 +6,14 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 12:39:46 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/05 10:45:34 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:57:15 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 int		ft_itob(int n, char *dest, int base);
 
 int		main(int argc, const char *argv[])
@@ -53,34 +54,37 @@ size_t	get_offset(int base)
 	return (ret);
 }
 
+unsigned int	get_next_mask(unsigned int mask, size_t offset)
+{
+	unsigned int	start;
+	unsigned int	ret;
+
+	start = (mask | (mask >> 1)) - mask;
+	ret = 0;
+	if (start)
+		while (offset--)
+			ret += (start >> offset);
+
+	return (ret);
+}
+
 int		ft_itob(int n, char *dest, int base)
 {
 	size_t 			offset;
 	unsigned int	mask;
 	unsigned int	value;
-	
-	offset = get_offset(base);
-	if (offset) {
-		mask = (32 % offset) ? (base - 1) << (32 - 32 % offset) : (base - 1) << (32 - offset);
-		value = n & mask;
-		n -= value;
-		if (value)
-			while ((value >> offset) > 0)
-				value >>= offset;
+	size_t			lshifts;
 
-		set_bits(dest++, value);
-		mask = (32 % offset) ? (base - 1) << (32 - offset - 32 % offset) : (base - 1) << (32 - offset * 2);
+	if ((offset = get_offset(base))) { 
+		lshifts = (32 % offset) ? (32 - 32 % offset) : 32 - offset;
+		mask = (base - 1) << lshifts;
 		while (mask) {
-			value = n & mask;
-			n -= value;
-			if (value)
-				while ((value >> offset) > 0)
-					value >>= offset;
-
+			value = mask & n;
+			while (value >> offset)
+				value >>= offset;
 			set_bits(dest++, value);
-			mask >>= offset;
+			mask = get_next_mask(mask, offset);
 		}
-
 		*dest = '\0';
 		return (base);
 	}
