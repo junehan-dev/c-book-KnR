@@ -6,13 +6,13 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:46:52 by junehan           #+#    #+#             */
-/*   Updated: 2021/06/29 12:20:35 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/06 17:42:23 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void ft_itoa(int n, char *dest)
+size_t ft_itoa(int n, char *dest)
 {
 	char	ret[32];
 	int		i;
@@ -35,5 +35,6 @@ void ft_itoa(int n, char *dest)
 		*dest++ = ret[i++];
 
 	*dest = '\0';
+	return (32 - i);
 }
 
