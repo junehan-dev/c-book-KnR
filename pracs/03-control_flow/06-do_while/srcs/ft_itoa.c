@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:46:52 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/06 17:42:23 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/07 10:16:53 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t ft_itoa(int n, char *dest)
 	sign = (n < 0) ? -1 : 1;
 	if (n)
 		while (n) {
-			ret[i--] = (n * sign % 10 + '0');
+			ret[i--] = (n % 10 * sign + '0');
 			n /= 10;
 		}
 	else

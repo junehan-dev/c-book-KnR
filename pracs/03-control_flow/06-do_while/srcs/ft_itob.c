@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 12:39:46 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/05 15:57:15 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/07 10:18:37 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ size_t	get_offset(int base)
 	size_t	ret;
 
 	ret	= 0;
-	if (base <= 16)
+	if (base <= 16 && !(base % 2) && !(base % 4) && !(base % 8))
 		while ((base >>= 1))
 			ret++;
 
