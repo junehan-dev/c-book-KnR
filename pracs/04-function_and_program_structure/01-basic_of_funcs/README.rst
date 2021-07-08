@@ -8,4 +8,3 @@ ft_strrindex
    Signature
       ``int ft_strrindex(const char *s, int t);``
 
-   Description
