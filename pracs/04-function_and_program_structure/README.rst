@@ -9,3 +9,8 @@ Basic of funcitions
 
 **Exercise 4-1**
    Write a function strrindex(s, t), which returns the position od the right most occurrence of t in s, or -1 if there is no one.
+
+Function Returning Non-Integers
+-------------------------------
+**Exercise 4-2**
+   Write a function atof to handle scientific notation of the form *123.45e-6*
