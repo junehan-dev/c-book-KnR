@@ -9,3 +9,7 @@ ft_atof
    Signature
       ``double ft_atof(const char *src);``
 
+   Description
+      input with *e* notation should contain + or - character to effect right side of *e* to return value.
+      If *22.32e3* come as input, than just return *22.32*
+
