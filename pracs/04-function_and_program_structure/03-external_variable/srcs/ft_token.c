@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:20:45 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/12 14:57:54 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/13 13:27:20 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ const char	*ft_gettoken(const char *src)
 	if (ft_iseol(*src_pt) && !need_oper)
 		return (src_pt);
 
-	ret = (need_oper && ft_isdigit(src_pt)) ? src_pt : ret;
-	ret = (!need_oper && ft_isoperator(*src_pt)) ? src_pt : ret;
+	ret = (!need_oper && ft_isdigit(src_pt)) ? src_pt : ret;
+	ret = (need_oper && ft_isoperator(*src_pt)) ? src_pt : ret;
 	need_oper = (ret) ? !need_oper : 0;
 	return (ret);
 }
