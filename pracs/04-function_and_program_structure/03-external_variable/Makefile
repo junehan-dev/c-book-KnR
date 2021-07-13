@@ -1,6 +1,7 @@
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 NAME			= ft_calc.a
+PROGRAM			= ft_calc.out
 OBJECTS			= srcs/ft_token.o\
 				srcs/ft_atoi.o
 .DEFAULT_GOAL	:= all
@@ -10,7 +11,10 @@ $(NAME): $(OBJECTS)
 	ranlib $@
 
 .PHONY: all
-all: build
+all: $(PROGRAM)
+
+$(PROGRAM): $(NAME)
+	$(CC) $(CFLAGS) -Iincludes ./srcs/ft_calc.c $^ -o $@
 
 .PHONY: build
 build: $(NAME)
@@ -27,6 +31,9 @@ clean:
 
 .PHONY: fclean
 fclean:
+	/bin/rm $(PROGRAM)
 	/bin/rm $(NAME)
 
+.PHONY: re
+re: clean fclean $(PROGRAM)
 
