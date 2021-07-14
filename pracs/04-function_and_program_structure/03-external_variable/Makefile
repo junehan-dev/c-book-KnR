@@ -3,7 +3,8 @@ CFLAGS			= -Wall -Werror -Wextra
 NAME			= ft_calc.a
 PROGRAM			= ft_calc.out
 OBJECTS			= srcs/ft_token.o\
-				srcs/ft_atoi.o
+				srcs/ft_atoi.o\
+				srcs/ft_stack.o
 .DEFAULT_GOAL	:= all
 
 $(NAME): $(OBJECTS)
@@ -24,6 +25,9 @@ srcs/ft_token.o:
 
 srcs/ft_atoi.o:
 	$(CC) $(CFLAGS) srcs/ft_atoi.c -c -o $@
+
+srcs/ft_stack.o:
+	$(CC) $(CFLAGS) srcs/ft_stack.c -c -o $@
 
 .PHONY: clean
 clean:
