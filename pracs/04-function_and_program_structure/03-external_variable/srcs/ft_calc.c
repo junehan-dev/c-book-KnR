@@ -6,12 +6,13 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:47:59 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/13 17:31:20 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/14 11:58:43 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "ft_calc.h"
 
 ssize_t	intlen(const char *src)
@@ -38,15 +39,13 @@ size_t	set_tokens(const char *src)
 	ret = 0;
 	operator = 0;
 	number = ft_gettoken(src);
-	//add_number(number);
+	add_number(number);
 	write(STDOUT_FILENO, number, intlen(number));
 	src_pt = number + intlen(number);
 	
 	while ((operator = ft_gettoken(src_pt))) {
-		/*
-		assert(ft_isoperator(operator));
+		assert(ft_isoperator(*operator));
 		add_operator(operator);
-		*/
 		if (!ft_isoperator(*operator))
 			return (0);
 
@@ -56,10 +55,8 @@ size_t	set_tokens(const char *src)
 			return (0);
 
 		write(STDOUT_FILENO, number, intlen(number));
-		/*
 		assert(ft_isdigit(number));
 		add_number(number);
-		*/
 		src_pt = number + intlen(number);
 		ret++;
 	}
@@ -83,7 +80,13 @@ int		main(int argc, const char **argv)
 			return (EXIT_FAILURE);
 		}
 	}
-	write(STDOUT_FILENO, "EXIT\n", 6);
+	int		i;
+	char	oper;
+	i = 0;
+	write(STDOUT_FILENO, "operators: ", 11);
+	while ((oper = get_operator(i++)))
+		write(STDOUT_FILENO, &oper, 1);
+	write(STDOUT_FILENO, "\nEXIT\n", 6);
 	return (EXIT_SUCCESS);
 }
 
