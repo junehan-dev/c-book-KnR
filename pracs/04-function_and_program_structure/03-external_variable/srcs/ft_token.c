@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:20:45 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/13 13:27:20 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/15 12:11:47 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ int			ft_isdigit(const char *src)
 		return (1);
 
 	return (0);
+}
+
+int		ft_opercmp(char dest, char src)
+{
+	unsigned int	dest_level;
+	unsigned int	src_level;
+
+	dest_level = ((dest == '*' || dest == '/') ? 1 : 0);
+	src_level = ((src == '*' || src == '/') ? 1 : 0);
+	return ((dest_level < src_level) ? 0 : 1);
 }
 
 const char	*ft_gettoken(const char *src)

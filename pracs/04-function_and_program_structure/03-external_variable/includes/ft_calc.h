@@ -5,6 +5,7 @@ int			ft_isspace(const char ch);
 int			ft_iseol(const char ch);
 int			ft_isoperator(const char ch);
 int			ft_isdigit(const char *src);
+int			ft_opercmp(char dest, char src);
 const char	*ft_gettoken(const char *src);
 // ft_atoi
 int			ft_atoi(const char *src);
