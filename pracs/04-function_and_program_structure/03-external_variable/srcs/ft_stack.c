@@ -23,11 +23,25 @@ size_t add_number(const char *number)
 
 char	*get_number(size_t index)
 {
-	return (_G_numbers[index]);
+	char	*ret;
+
+	ret = _G_numbers[index];
+	_G_numbers[index] = (char *)0;
+	return (ret);
 }
 
 char	get_operator(size_t index)
 {
 	return (_G_operators[index]);
+}
+
+
+char	unset_operator(size_t index)
+{
+	char ret;
+
+	ret = _G_operators[index];
+	_G_operators[index] = 0;
+	return (ret);
 }
 

@@ -14,4 +14,5 @@ size_t		add_operator(const char *operator);
 size_t		add_number(const char *number);
 char		*get_number(size_t index);
 char		get_operator(size_t index);
+char		unset_operator(size_t index);
 #endif

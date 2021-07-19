@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:20:45 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/15 12:11:47 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/19 14:55:41 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_opercmp(char dest, char src)
 
 	dest_level = ((dest == '*' || dest == '/') ? 1 : 0);
 	src_level = ((src == '*' || src == '/') ? 1 : 0);
-	return ((dest_level < src_level) ? 0 : 1);
+	return ((src_level > dest_level) ? 0 : 1);
 }
 
 const char	*ft_gettoken(const char *src)
