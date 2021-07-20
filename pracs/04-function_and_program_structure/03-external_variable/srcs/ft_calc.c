@@ -6,12 +6,14 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:47:59 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/19 14:19:25 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/20 10:55:00 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <string.h>
 #include "ft_calc.h"
+#include <stdio.h>
 
 ssize_t	get_intlen(const char *src)
 {
@@ -53,47 +55,43 @@ size_t	set_tokens(const char *src)
 	return (ret);
 }
 
-#include <string.h>
-#include <stdio.h>
 size_t	parse_token(char *dest, size_t num_count)
 {
-	size_t	oper_count;
 	char	*dest_pt;
-	int		i;
-	size_t	intlen;
+	size_t	i;
+	size_t	y;
+	size_t	len;
 	char	*num;
 
-	oper_count = (num_count) ? num_count - 1 : 0;
-	printf("operators : %lu\n", oper_count);
-	dest_pt = dest;
-	// first 2 count must be..
-	
 	i = 0;
-	i = ft_opercmp(get_operator(i), get_operator(i + 1)) ? i : i + 1; 
+	while (!get_operator(i) && (i < (num_count - 1)))
+		i++;
 
+	if (i == (num_count - 1))
+		return (0);
+
+	
+	y = i + 1;
+	while (!get_operator(y))
+		y++;
+	i = ft_opercmp(get_operator(i), get_operator(y)) ? i : y; 
+	dest_pt = dest;
 	num = get_number(i);
-	intlen = get_intlen(num);
-	memmove(dest_pt, num, intlen);
-	dest_pt += intlen;
-
-
-	num = get_number(i + 1);
-	intlen = get_intlen(num);
-	memmove(dest_pt, num, intlen);
-	dest_pt += intlen;
-	*dest_pt++ = get_operator(i);
-	*dest_pt = '\0';
-	/*
-	while (i < oper_count) {
-		while (oper = get_operator(i))
-			i++;
-		next_oper = (i < oper_count - 1) ? get_operator(i + 1) : '\0';
-		i = (ft_opercmp(oper, next_oper)) ? i : i + 1;
-		oper = get_operator(i);
-		push(dest_pt, get_number(i+1), oper);
+	if (num) {
+		len = get_intlen(num);
+		memmove(dest_pt, num, len); 
+		unset_number(i);
+		dest_pt += len;
 	}
-	*/
-	write(STDOUT_FILENO, "parsed_token!\n", 13);
+	if ((i < (num_count - 1)) && (num = get_number(i + 1))) {
+		len = get_intlen(num);
+		memmove(dest_pt, num, len); 
+		unset_number(i + 1);
+		dest_pt += len;
+	}
+	*dest_pt++ = get_operator(i);
+	unset_operator(i);
+	*dest_pt = 0;
 	return (dest_pt - dest);
 }
 
@@ -132,10 +130,12 @@ int		main(int argc, const char **argv)
 
 	char		dest[1024];
 	size_t		dest_len;
+	size_t		len;
 
-	dest_len = parse_token(dest, (operator_count + 1)) ? : 0;
-	dest[dest_len] = '\0';
-	write(STDOUT_FILENO, dest, dest_len);
+	dest_len = 0;
+	while ((len = parse_token(dest + dest_len, (operator_count + 1))))
+		dest_len += len;
+	printf("fin: '%s'\n", dest);
 	write(STDOUT_FILENO, "EXIT\n", 5);
 	return (0);
 }
