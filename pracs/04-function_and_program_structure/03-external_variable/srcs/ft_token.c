@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:20:45 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/19 14:55:41 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/20 11:43:11 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			ft_isspace(const char ch)
 
 int			ft_iseol(const char ch)
 {
-	return (ch == '\n' || ch == 0 || ch == -1);
+	return (ch == '\n' || ch == 0);
 }
 
 int			ft_isoperator(const char ch)
@@ -57,8 +57,10 @@ const char	*ft_gettoken(const char *src)
 	while (ft_isspace(*src_pt))
 		src_pt++;
 
-	if (ft_iseol(*src_pt) && !need_oper)
-		return (src_pt);
+	if (ft_iseol(*src_pt)) {
+		ret = (need_oper) ? src_pt : ret;
+		return (ret);
+	}
 
 	ret = (!need_oper && ft_isdigit(src_pt)) ? src_pt : ret;
 	ret = (need_oper && ft_isoperator(*src_pt)) ? src_pt : ret;

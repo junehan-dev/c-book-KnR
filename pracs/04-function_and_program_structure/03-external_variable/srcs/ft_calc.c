@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:47:59 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/20 10:55:00 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/20 11:45:53 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ ssize_t	get_intlen(const char *src)
 	return (ret);
 }
 
-size_t	set_tokens(const char *src)
+ssize_t	set_tokens(const char *src)
 {
 	const char	*number;
 	const char	*operator;
@@ -40,17 +40,21 @@ size_t	set_tokens(const char *src)
 	number = ft_gettoken(src);
 	add_number(number);
 	src_pt = number + get_intlen(number);
+	while ((operator = ft_gettoken(src_pt)) && !ft_iseol(*operator)) {
+		if (!(number = ft_gettoken(operator + 1)))
+			return (-1);	
 
-	while ((operator = ft_gettoken(src_pt))) {
-		number = ft_gettoken(operator + 1);
 		if (!ft_isoperator(*operator) || !ft_isdigit(number))
-			return (0);
+			return (-1);
 
 		add_operator(operator);
 		add_number(number);
 		src_pt = number + get_intlen(number);
 		ret++;
 	}
+	
+	if (!operator)
+		return (-1);
 
 	return (ret);
 }
@@ -98,15 +102,16 @@ size_t	parse_token(char *dest, size_t num_count)
 int		main(int argc, const char **argv)
 {
 	const char	*input;
-	size_t		operator_count;
+	ssize_t		operator_count;
 
 	input = (argc == 2) ? *(argv + 1) : 0;
-	if (input) {
-		operator_count = ft_isdigit(input) ? set_tokens(input): 0;
-		if (operator_count < 1) {
+	operator_count = (input && ft_isdigit(input)) ? set_tokens(input): 0;
+	if (operator_count < 1) {
+		if (!operator_count)
 			write(STDOUT_FILENO, "INPUT ERROR\n", 12);
-			return (1);
-		}
+		else
+			write(STDOUT_FILENO, "MID VALUE ERROR\n", 16);
+		return (1);
 	}
 	
 	int		i;
