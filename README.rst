@@ -18,7 +18,7 @@ PROGRAMS
 #. `1-13~14_histogram`_
 #. `1-17~19_filterline_strreverse`_
 #. `1-20~23_entab_detab_fold`_ [ONGOING]
-#. `1-23_uncomment`_
+#. `1-23_uncomment_`
 #. `1-3~4_tempconveter`_
 #. `1-5_tempconverterForloop`_
 #. `1-8~10_countSpecials`_
