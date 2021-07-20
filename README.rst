@@ -17,7 +17,7 @@ PROGRAMS
 1. `1-11~12_woudcount`_ [ONGOING]
 #. `1-13~14_histogram`_
 #. `1-17~19_filterline_strreverse`_
-#. `1-20~23_entab_detab_fold`_ [ONGOING]
+#. `1-20~22_entab_detab_fold`_ [ONGOING]
 #. `1-23_uncomment`_
 #. `1-3~4_tempconveter`_
 #. `1-5_tempconverterForloop`_
@@ -35,7 +35,7 @@ PROGRAMS
 .. _1-11~12_woudcount: ./1-11~12_woudcount
 .. _1-13~14_histogram: ./1-13~14_histogram
 .. _1-17~19_filterline_strreverse: ./1-17~19_filterline_strreverse
-.. _1-20~23_entab_detab_fold: ./1-20~23_entab_detab_fold
+.. _1-20~22_entab_detab_fold: ./1-20~22_entab_detab_fold
 .. _1-23_uncomment: ./1-23_uncomment
 .. _1-3~4_tempconveter: ./1-3~4_tempconveter
 .. _1-5_tempconverterForloop: ./1-5_tempconverterForloop
