@@ -42,12 +42,3 @@ Scenario
       - if dot+1 == BLANK_TYPE: insert NL and remove all blanks. 
       - else(char or EOF or Nullterminate): alloc new line from there.
    #. May be not allocate, but split. and no manipulates but pointer array with NULL-Termination.
-
-Exercise 1-23
-^^^^^^^^^^^^^
-   On uncomment-directory_
-
-.. _uncomment-directory: ../uncomment
-
-Exercise 1-24
-^^^^^^^^^^^^^
