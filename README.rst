@@ -30,6 +30,7 @@ PROGRAMS
 #. `3-3_expand`_
 #. `3-5~6_itob_itoaFormat`_
 #. `4-1_strrindex`_
+#. `4_ReversePolishConverter`_
 #. `4-2_atofScientificNotation`_
 
 .. _1-11~12_woudcount: ./1-11~12_woudcount
@@ -48,5 +49,6 @@ PROGRAMS
 .. _3-3_expand: ./3-3_expand
 .. _3-5~6_itob_itoaFormat: ./3-5~6_itob_itoaFormat
 .. _4-1_strrindex: ./4-1_strrindex
+.. _4_ReversePolishConverter: ./4_ReversePolishConverter
 .. _4-2_atofScientificNotation: ./4-2_atofScientificNotation
 
