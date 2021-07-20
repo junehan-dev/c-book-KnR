@@ -3,7 +3,7 @@ CFLAGS				= -Wall -Wextra -Werror -Iincludes
 NAME				= print_temp_table.run
 SRC					= srcs/main.c
 OBJ					= temp_converter.o
-lib_temp_converter	:= ../2-vars_n_arithmetic_expr
+lib_temp_converter	:= ../1-2_tempconverter
 .DEFAULT_GOAL		= all
 
 .PHONY: all
