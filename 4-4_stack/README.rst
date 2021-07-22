@@ -3,15 +3,35 @@ External Variable
 
 ft_stack.a
 ----------
-ft_stack_push
-^^^^^^^^^^^^^
-   Write
+ft_stack_create
+^^^^^^^^^^^^^^^
+   Write function to create stack.
 
    Signature
-      ``int		ft_stack_push(void *data)``
+      ``void	**ft_stack_create(int len)``
 
    Description
-	  Converts
+      returns NULL or valid pointer based on ``malloc`` results.
+
+
+ft_stack_push
+^^^^^^^^^^^^^
+   Write function to push data to stack.
+
+   Signature
+      ``int		ft_stack_push(void **stack, void *data)``
+
+   Description
+      Return cases::
+
+         1. return -1	(Failure)
+            ``*data`` it self is null, and ``*stack`` is not null
+
+         2. return 1	(Failure)
+            ``*data`` it self is not null, but ``*stack`` is null, means lenth limit
+
+         3. return 0	(Success)
+            ``*data`` it self not null, and ``*stack`` is not null
 
 ft_stack_pop
 ^^^^^^^^^^^^
