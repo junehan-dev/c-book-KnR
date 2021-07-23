@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_push.c                                    :+:      :+:    :+:   */
+/*   ft_stack_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/22 11:49:16 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/23 13:14:22 by junehan          ###   ########.fr       */
+/*   Created: 2021/07/23 11:15:59 by junehan           #+#    #+#             */
+/*   Updated: 2021/07/23 12:22:10 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-int	ft_stack_push(void **stack, void *data)
+int	ft_stack_len(void **stack)
 {
-	if (!data)
-		return (-1);
+	void **stack_pt;
 
-	if (!*stack && !*(stack + 1))
-		*stack = data;
+	stack_pt = stack;
+	while (*stack_pt)
+		stack_pt++;
 
-	return ((*stack == data) ? 0 : 1);
+	return (stack_pt - stack);
 }

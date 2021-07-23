@@ -19,18 +19,25 @@ int		main(void)
 
 	i = 0;
 	assert(i != MAXLEN);
+	assert(!ft_stack_len((void **)stack));
+
+	int	**stack_end;
+	stack_end = stack;
+
 	while (i < MAXLEN) {
-		assert(i < MAXLEN);
 		num = malloc(sizeof(int));
 		*num = i + 42;
+		printf("i is %d\n", i);
 		is_push_error = ft_stack_push((void**)(stack + i), (void *)num);
+
 		assert(is_push_error == 0);
 		assert(*(stack + i) == num);
 		i++;
+
+		assert(ft_stack_len((void **)stack) == i);
 	}
 	assert(i == MAXLEN);
 	assert(*(stack + i) == (void *)0);
-//	assert(ft_stack_len(stack) == MAXLEN);
 
 	while (i--)
 		free(*(stack + i));

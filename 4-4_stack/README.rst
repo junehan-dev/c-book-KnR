@@ -22,13 +22,15 @@ ft_stack_push
       ``int		ft_stack_push(void **stack, void *data)``
 
    Description
+      set ``data``  to ``*stack`` while ``*(stack + 1)`` is NULL value.
+
       Return cases::
 
          1. return -1	(Failure)
             ``*data`` it self is null, and ``*stack`` is not null
 
          2. return 1	(Failure)
-            ``*data`` it self is not null, but ``*stack`` is null, means lenth limit
+            ``*data`` it self is not null, but ``stack`` is full or ``*stack`` already has data.
 
          3. return 0	(Success)
             ``*data`` it self not null, and ``*stack`` is not null
@@ -55,13 +57,14 @@ ft_stack_stat
 
 ft_stack_len
 ^^^^^^^^^^^^
-   Write
-
    Signature
-      ``int		ft_stack_len(void)``
+      ``int		ft_stack_len(void **stack)``
 
    Description
-	  Converts
+	  returns current length of stack.
+      Basically all pointer has null.
+    
+      
 
 ft_stack_copy
 ^^^^^^^^^^^^^

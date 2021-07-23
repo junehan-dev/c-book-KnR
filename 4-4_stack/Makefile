@@ -1,7 +1,8 @@
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 OBJECTS			= srcs/ft_stack_create.o \
-				srcs/ft_stack_push.o
+				srcs/ft_stack_push.o \
+				srcs/ft_stack_len.o
 
 NAME			= ft_stack.a
 
@@ -25,6 +26,9 @@ srcs/ft_stack_create.o:
 
 srcs/ft_stack_push.o:
 	$(CC) $(CFLAGS) -c srcs/ft_stack_push.c -o $@
+
+srcs/ft_stack_len.o:
+	$(CC) $(CFLAGS) -c srcs/ft_stack_len.c -o $@
 
 .PHONY: clean
 clean:
