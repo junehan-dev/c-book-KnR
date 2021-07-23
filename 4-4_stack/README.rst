@@ -13,7 +13,6 @@ ft_stack_create
    Description
       returns NULL or valid pointer based on ``malloc`` results.
 
-
 ft_stack_push
 ^^^^^^^^^^^^^
    Write function to push data to stack.
@@ -37,14 +36,16 @@ ft_stack_push
 
 ft_stack_pop
 ^^^^^^^^^^^^
-   Write
+   Write function to pop data from stack.
 
    Signature
-      ``void	*ft_stack_pop(void)``
+      ``void	*ft_stack_pop(void **stack)``
 
    Description
-	  Converts
-
+      Pop off last pushed data. (with set that space as null)
+      returns pointer of poped element.
+      if nothing in stack, returns NULL.
+      
 ft_stack_stat
 ^^^^^^^^^^^^^
    Write

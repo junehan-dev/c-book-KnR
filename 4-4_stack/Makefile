@@ -2,7 +2,8 @@ CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 OBJECTS			= srcs/ft_stack_create.o \
 				srcs/ft_stack_push.o \
-				srcs/ft_stack_len.o
+				srcs/ft_stack_len.o \
+				srcs/ft_stack_pop.o
 
 NAME			= ft_stack.a
 
@@ -29,6 +30,9 @@ srcs/ft_stack_push.o:
 
 srcs/ft_stack_len.o:
 	$(CC) $(CFLAGS) -c srcs/ft_stack_len.c -o $@
+
+srcs/ft_stack_pop.o:
+	$(CC) $(CFLAGS) -c srcs/ft_stack_pop.c -o $@
 
 .PHONY: clean
 clean:
