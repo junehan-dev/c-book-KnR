@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 11:15:59 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/23 12:22:10 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/26 10:22:59 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,4 @@ int	ft_stack_len(void **stack)
 
 	return (stack_pt - stack);
 }
+

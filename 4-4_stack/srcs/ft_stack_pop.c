@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 13:29:51 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/23 13:31:57 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/26 10:22:51 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,4 @@ void	*ft_stack_pop(void **stack)
 	*stack = (void *)0;
 	return (ret);
 }
+

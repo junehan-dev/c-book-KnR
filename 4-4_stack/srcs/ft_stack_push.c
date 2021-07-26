@@ -6,11 +6,9 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:49:16 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/23 13:14:22 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/26 10:22:38 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 int	ft_stack_push(void **stack, void *data)
 {
@@ -22,3 +20,4 @@ int	ft_stack_push(void **stack, void *data)
 
 	return ((*stack == data) ? 0 : 1);
 }
+
