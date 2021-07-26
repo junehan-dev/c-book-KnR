@@ -6,7 +6,7 @@ int		ft_stack_len(void **stack);
 void	*ft_stack_pop(void **stack);
 void	ft_stack_stat(void **stack, size_t bytesiz, char delimiter);
 int		ft_stack_swap(void **s1, void **s2);
+void	**ft_stack_copy(char **dest, const char **src, size_t n);
 /*
-void	**ft_stack_copy(void **stack);
 */
 #endif

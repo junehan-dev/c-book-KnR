@@ -77,11 +77,12 @@ ft_stack_swap
 
 ft_stack_copy
 ^^^^^^^^^^^^^
-   Write
-
    Signature
-      ``void	**ft_stack_copy(int len)``
+      ``void	**ft_stack_copy(char **dest, const char **src, size_t n)``
 
    Description
-	  Converts
+	  Copy src's data into src.
+      valid pointer count calculated inside function.
+      If (destlen < srclen) or malloc error, cleans all prev heap data and return ``(void **)0``
+      On success returns ``(void **)dest``
 

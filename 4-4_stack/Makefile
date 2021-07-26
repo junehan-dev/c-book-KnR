@@ -5,7 +5,8 @@ OBJECTS			= srcs/ft_stack_create.o \
 				srcs/ft_stack_len.o \
 				srcs/ft_stack_pop.o \
 				srcs/ft_stack_stat.o \
-				srcs/ft_stack_swap.o
+				srcs/ft_stack_swap.o \
+				srcs/ft_stack_copy.o
 
 NAME			= ft_stack.a
 
@@ -42,7 +43,10 @@ srcs/ft_stack_stat.o:
 srcs/ft_stack_swap.o:
 	$(CC) $(CFLAGS) -c srcs/ft_stack_swap.c -o $@
 
-.PHONY: clean
+.srcs/ft_stack_copy.o:
+	$(CC) $(CFLAGS) -c srcs/ft_stack_copy.c -o $@
+
+PHONY: clean
 clean:
 	/bin/rm $(OBJECTS)
 
