@@ -48,13 +48,13 @@ ft_stack_pop
       
 ft_stack_stat
 ^^^^^^^^^^^^^
-   Write
-
    Signature
-      ``void	ft_stack_stat(int len)``
+      ``void	ft_stack_stat(void **stack, size_t bytelen, char delimiter)``
 
    Description
-	  Converts
+	  Print out each stack element with ``delemiter`` character.
+      speaking in honestly, it uses ``printf`` function for now,
+      but need to be changed to use ``write`` some day.
 
 ft_stack_len
 ^^^^^^^^^^^^
@@ -65,8 +65,6 @@ ft_stack_len
 	  returns current length of stack.
       Basically all pointer has null.
     
-      
-
 ft_stack_copy
 ^^^^^^^^^^^^^
    Write

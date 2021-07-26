@@ -37,7 +37,7 @@ int		main(void)
 		assert(ft_stack_len((void **)stack) == i);
 	}
 	/* stat test */
-	ft_stack_stat((void **)stack, 4);
+	ft_stack_stat((void **)stack, 4, '\n');
 
 	assert(i == MAXLEN);
 	assert(*(stack + i) == (void *)0);
