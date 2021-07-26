@@ -26,7 +26,6 @@ int		main(void)
 	while (i < MAXLEN) {
 		num = malloc(sizeof(int));
 		*num = i + 42;
-		printf("i is %d\n", i);
 		/* push test */
 		is_push_error = ft_stack_push((void**)(stack + i), (void *)num);
 
@@ -37,10 +36,11 @@ int		main(void)
 		/* len test */
 		assert(ft_stack_len((void **)stack) == i);
 	}
+	/* stat test */
+	ft_stack_stat((void **)stack, 4);
 
 	assert(i == MAXLEN);
 	assert(*(stack + i) == (void *)0);
-
 	/* pop test */
 	i--;
 	num = ft_stack_pop((void **)stack);

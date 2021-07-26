@@ -3,7 +3,8 @@ CFLAGS			= -Wall -Wextra -Werror
 OBJECTS			= srcs/ft_stack_create.o \
 				srcs/ft_stack_push.o \
 				srcs/ft_stack_len.o \
-				srcs/ft_stack_pop.o
+				srcs/ft_stack_pop.o \
+				srcs/ft_stack_stat.o
 
 NAME			= ft_stack.a
 
@@ -33,6 +34,9 @@ srcs/ft_stack_len.o:
 
 srcs/ft_stack_pop.o:
 	$(CC) $(CFLAGS) -c srcs/ft_stack_pop.c -o $@
+
+srcs/ft_stack_stat.o:
+	$(CC) $(CFLAGS) -c srcs/ft_stack_stat.c -o $@
 
 .PHONY: clean
 clean:
