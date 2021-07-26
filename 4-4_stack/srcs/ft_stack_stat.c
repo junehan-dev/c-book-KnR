@@ -6,25 +6,28 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 10:33:16 by junehan           #+#    #+#             */
-/*   Updated: 2021/07/26 11:42:19 by junehan          ###   ########.fr       */
+/*   Updated: 2021/07/26 11:56:24 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-void		print_str(char *src)
+void		print_str(char **src, char delimiter)
 {
-	printf("%s", src);
+	while (*src)
+		printf("%s%c", *src++, delimiter);
 }
 
-void		print_int(int *src)
+void		print_int(int **src, char delimiter)
 {
-	printf("%d", *src);
+	while (*src)
+		printf("%d%c", **src++, delimiter);
 }
 
-void		print_long(long int *src)
+void		print_long(long int **src, char delimiter)
 {
-	printf("%ld", *src);
+	while (*src)
+		printf("%ld%c", **src++, delimiter);
 }
 
 void		ft_stack_stat(void **stack, size_t bytesiz, char delimiter)
@@ -32,11 +35,7 @@ void		ft_stack_stat(void **stack, size_t bytesiz, char delimiter)
 	void		**stack_pt;
 
 	stack_pt	= stack;
-	while (*stack_pt) {
-		(bytesiz == 1) ? print_str(*stack_pt) : 0;
-		(bytesiz == 4) ? print_int(*stack_pt) : 0;
-		(bytesiz == 8) ? print_long(*stack_pt) : 0;
-		printf("%c", delimiter);
-		stack_pt++;
-	}
+	(bytesiz == 1) ? print_str((char **)stack_pt, delimiter) : 0;
+	(bytesiz == 4) ? print_int((int **)stack_pt, delimiter) : 0;
+	(bytesiz == 8) ? print_long((long int **)stack_pt, delimiter) : 0;
 }
