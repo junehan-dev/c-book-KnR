@@ -36,6 +36,16 @@ int		main(void)
 		/* len test */
 		assert(ft_stack_len((void **)stack) == i);
 	}
+	/* swap test */
+	assert(**(stack + 0) == 42);
+	assert(**(stack + 3) == 45);
+	assert(ft_stack_swap((void **)(stack + 0), (void **)(stack + 3)));
+	assert(**(stack + 0) == 45);
+	assert(**(stack + 3) == 42);
+	/* negative swap test */
+	assert(!ft_stack_swap((void **)(stack + 0), (void **)(stack + MAXLEN)));
+	assert(**(stack + 0) == 45);
+
 	/* stat test */
 	ft_stack_stat((void **)stack, 4, '\n');
 

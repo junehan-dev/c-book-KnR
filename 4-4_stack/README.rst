@@ -64,7 +64,17 @@ ft_stack_len
    Description
 	  returns current length of stack.
       Basically all pointer has null.
-    
+ 
+ft_stack_swap
+^^^^^^^^^^^^^
+   Signature
+      ``int		ft_stack_swap(void **s1, void **s2)``
+
+   Description
+	  swap 2 value in stack.
+      if any of s1, and s2 is null, returns 0.
+      if not and swapped fine, return 1
+
 ft_stack_copy
 ^^^^^^^^^^^^^
    Write
@@ -75,12 +85,3 @@ ft_stack_copy
    Description
 	  Converts
 
-ft_stack_swap
-^^^^^^^^^^^^^
-   Write
-
-   Signature
-      ``int		ft_stack_swap(int s1, int s2)``
-
-   Description
-	  Converts
