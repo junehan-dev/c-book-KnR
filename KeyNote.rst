@@ -121,5 +121,24 @@ CH04-Function and Program Structure
 
       IMPOSIBLE to take address of register variable! even if variable is not in the register.
 
+4.8-Block structure
+^^^^^^^^^^^^^^^^^^^
+   **C is not a block-structured language.**
+      it just can have fashion of block-structure within loop while re-initializes the automatic variable.
 
+4.9-initialization
+^^^^^^^^^^^^^^^^^^
+   - ``extern`` and ``static`` variable are garanteed to be initialized to zero.
+      1. initializer must be a constant expression.
+      #. initialization is done once. *(before program begins execution)*
+
+   - *automatic* and ``register`` variable have garbage initial values.
+      1. initializer is not restricted to being a constant.
+      #. initialization is done each time the function or block is entered.
+      #. inittilization for automatic variable is **just shorthand for assignment statements.**
+
+   - *array may be initialized,* by following its declaration with a list of initializers.
+      1. when size of the *array* is omitted, compiler will compute the length.
+      #. if fewer initialzed than specified length, **missing will be zero** for ``extern,`` ``static`` and *automatic* variables.
+      #. it will be error to have more than specified length.
 
