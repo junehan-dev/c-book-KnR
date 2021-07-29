@@ -114,3 +114,12 @@ CH04-Function and Program Structure
 
 4.7-Register variables
 ^^^^^^^^^^^^^^^^^^^^^^
+   ``register`` declaration **just advice the compiler that variable need to be placed in machine registers.** 
+   *(it can be ignored.)*
+
+   .. important::
+
+      IMPOSIBLE to take address of register variable! even if variable is not in the register.
+
+
+
