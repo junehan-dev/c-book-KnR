@@ -142,3 +142,15 @@ CH04-Function and Program Structure
       #. if fewer initialzed than specified length, **missing will be zero** for ``extern,`` ``static`` and *automatic* variables.
       #. it will be error to have more than specified length.
 
+4.10-Recursion
+^^^^^^^^^^^^^^
+   - C functions may be used recursively;
+      A function may call itself either directly or indrectly.
+
+   - Good example of recursion, *quicksort*
+      - Given an array, one element is chosen and the others are **partitioned into two subsets.**
+         1. those less than the partition element
+         #. those greater than or equalt to it
+      - The same process is then applied recusively to the two subsets.
+      - When a subset has fewer than 2-elements, it doesn't need any sorting.
+
