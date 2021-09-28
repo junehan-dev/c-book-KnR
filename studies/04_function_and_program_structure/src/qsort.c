@@ -21,11 +21,10 @@ void	qsort(int v[], int left, int right)
 		swap(v, left, mid);
 		last = left;
 		i = last;
-		while (i++ < right) {
+		while (i++ < right)
 			if (v[i] < v[left])
 				swap(v, ++last, i);
-			i++;
-		}
+
 		swap(v, left, last);
 		qsort(v, left, last - 1);
 		qsort(v, last + 1, right);
