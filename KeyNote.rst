@@ -153,4 +153,8 @@ CH04-Function and Program Structure
          #. those greater than or equalt to it
       - The same process is then applied recusively to the two subsets.
       - When a subset has fewer than 2-elements, it doesn't need any sorting.
+      - Our version of `quicksort`_ is not fastest possible, but it's one of the simplest.
+         It uses middle element of each sub-array for partitioning.
+
+.. _quicksort: ./studies/04_function_and_program_structure/src/sort.c
 
