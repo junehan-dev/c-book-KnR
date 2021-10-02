@@ -33,6 +33,8 @@ PROGRAMS
 #. `4_ReversePolishConverter`_
 #. `4-2_atofScientificNotation`_
 #. `4-4_stack`_	: External Variable
+#. `4-12_itoa_recursive`_ : Recursion 
+#. `4-13_reverse_recursive`_ : Recursion
 
 .. _1-11~12_woudcount: ./1-11~12_woudcount
 .. _1-13~14_histogram: ./1-13~14_histogram
@@ -53,4 +55,5 @@ PROGRAMS
 .. _4_ReversePolishConverter: ./4_ReversePolishConverter
 .. _4-2_atofScientificNotation: ./4-2_atofScientificNotation
 .. _4-4_stack: ./4-4_stack
-
+.. _4-12_itoa_recursive: ./4-12_itoa_recursive
+.. _4-13_reverse_recursive: ./4-13_reverse_recursive
