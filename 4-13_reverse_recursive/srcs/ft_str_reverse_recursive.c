@@ -6,7 +6,7 @@
 /*   By: junehan <junehan.dev@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 15:20:53 by junehan           #+#    #+#             */
-/*   Updated: 2021/10/02 16:28:14 by junehan          ###   ########.fr       */
+/*   Updated: 2021/10/02 16:43:44 by junehan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 static char	*ft_str_reverse_recursive(const char *src)
 {
 	static char temp[1024];
-	static char	*temp_pt = 0;
+	static char	*temp_pt;
 
+	temp_pt = 0;
 	if (*(src + 1) && *(src + 1) != '\n')
 		*(ft_str_reverse_recursive(src + 1));
 	else {
@@ -34,7 +35,8 @@ static char	*ft_str_reverse_recursive(const char *src)
 int	main(void)
 {
 	write(STDOUT_FILENO, ft_str_reverse_recursive("hello world!\n"), 13);
-	write(STDOUT_FILENO, ft_str_reverse_recursive("my world!"), 9);
+	write(STDOUT_FILENO, ft_str_reverse_recursive(" ,hello"), 7);
+	write(STDOUT_FILENO, ft_str_reverse_recursive("my world!\n"), 10);
 	return (0);
 }
 
