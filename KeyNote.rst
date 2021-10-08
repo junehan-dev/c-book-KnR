@@ -142,3 +142,155 @@ CH04-Function and Program Structure
       #. if fewer initialzed than specified length, **missing will be zero** for ``extern,`` ``static`` and *automatic* variables.
       #. it will be error to have more than specified length.
 
+4.10-Recursion
+^^^^^^^^^^^^^^
+   - C functions may be used recursively;
+      A function may call itself either directly or indrectly.
+
+   - Good example of recursion, *quicksort*
+      - Given an array, one element is chosen and the others are **partitioned into two subsets.**
+         1. those less than the partition element
+         #. those greater than or equalt to it
+      - The same process is then applied recusively to the two subsets.
+      - When a subset has fewer than 2-elements, it doesn't need any sorting.
+      - Our version of `quicksort`_ is not fastest possible, but it's one of the simplest.
+         It uses middle element of each sub-array for partitioning.
+
+.. _quicksort: ./studies/04_function_and_program_structure/src/sort.c
+
+4.11-The C Preprocessor
+-----------------------
+   C Provide certain language facilities by means of a preprocessor, which is conceptually a separate first step in compilation.
+   The two most frequently used features are ``#include`` to include the contents of a file during compilation, and ``#define`` to replace a token by an arbitary sequence of characters.
+   Other features described in this section include conditional compliation and macros with arguments.
+
+4.11.1-File Inclusion
+^^^^^^^^^^^^^^^^^^^^^
+   There are often several ``#include`` lines at the beginning of a source file, to include common ``#define`` statements an ``extern`` declarations, or to access the function prototype declaration for library functions from headers like ``<stdio.h>.``
+      *(Strictly speaking, these need not be files. The details of how headers are accessed are implementation-dependent.)*
+
+   ``#include`` is preferred way to tie the declarations together for a large program.
+   It guarantees that all the source files will be supplied with the same definitions and varaible declarations, and thus eliminates a particularly nasty kind of bug.
+   Naturally, when an included file is changed, all files that depend on it must be recomplied.
+
+4.11.2-Macro Substitution
+^^^^^^^^^^^^^^^^^^^^^^^^^
+   A definition has the form:
+      ``#define name	replacement text``
+
+   It calls for a macro substitution of the simplest kind-(subsequent occurences of the token *name* will be replaced by the *replacement* text.)
+   The name in a ``#define`` has the same form as a variable name;
+      The replacement text is arbitary.
+
+   Normally the replacement text is the rest of the line, but a long definition may be continued onto several lines by placing a ``\\`` at the end of each line to be continued.
+   The scope of a name defined with ``#define`` is from its point of definition to the end of the source file being compiled.
+   A definition may use previous definitions.
+
+   Substitutions are made only for tokens, and do not take place within quoted strings.
+   For example, if ``YES`` is a defined name, there would be no substitution in ``printf("YES")`` or in ``YESMAN``\.
+
+   It is possible to define macros with arguments, so the replacement text can be different for different calls of the macro:
+      ``#define max(A, B) ((A) > (B) ? (A) : (B))``
+
+   Although it looks like a function call, a use of *max* expands into in-line code.
+
+   **Pitfalls in Macro(with side effect)**
+      If you examine expansion of *max*\, you will notice some pitfalls.
+      The Expressions are evaluated twice;
+      this is bad if they involve side effects like increment operators or input and output, For instance
+         ``max(i++, j++) /* WRONG */``
+
+      will increment the larger twice.
+      Some care also has to be taken with parantheses to make sure the orfer of evaluation is preserved
+         .. code-block:: c
+
+            #define max(A, B) ((A) > (B) ? (A) : (B))
+            max(i++, j++); 
+            /*
+            * (i = 4 and j = 5)
+            * 1. 4 < 5 condition eval, and ++.
+            * 2. (B) returns 6, and ++.
+            * 3. j becomes 7.
+            */
+            
+            #define square(x) x * x
+            square(j + 1);
+            /*
+            * (j = 7)
+            * 1. 7 + 1 set is x, expands to 7 + 1 * 7 + 1
+            * 2. returns 15.
+            */
+
+   Nonetheless, macros are valuable,
+   One practical example comes from ``<stdio.h>``\, in which ``getchar`` and ``putchar`` are oftendefined as macros,
+   **to avoid the run-time overhead of a function call per character processed.**
+   The functions in ``<ctype.h>`` are also usually implemented as macros.
+
+   Names may be undefined with ``#undef``\, usually to ensure that a routine is really a function, not a macro.
+      .. code-block:: c
+
+         #undef getchar
+         
+         int	getchar(void) { ... }
+
+   Formal parameters are not replaced within quoted strings.
+   If, however, a parameter name is preceded by a ``#`` in replacement text, the combination will be expanded into a quoted stirng with the parameter replaced by the actual argument.
+   This can be combined with string concatenation to make, for example. a debugging print macro.
+
+      ``#define dprint(expr)	printf(#expr " = %g\n", expr)``
+
+   When this is invoked with ``x/y`` arguments, macro is expanded into
+
+      1. ``printf("x/y" " = &g\n", x/y);``
+      #. And the strings are concatenated, so the effect is
+      #. ``printf("x/y = &g\n", x/y);``
+
+   The preprocessor operator ``##`` provides a way to concatenate actual arguments during macro expansion.
+   If a parameter in the replacement text is adjacent to a ``##``\, the parameter is replaced by the actual argument, the ``##`` and surrounding white space are removed, and the result is rescanned. 
+
+      ``#define	paste(front, back)	front ## back``
+
+   So, ``paste(name, 1)`` creates the token ``name1``.
+   The rules for nested uses of ``##`` are arcane.
+
+4.11.3-Conditional Inclusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   It is possible to control preprocessing itself with conditional statements that are evaluated during preprocessing.
+   This provides a way to include code selectively, depending on the value of conditions evaluated during compliation.
+
+   - ``#if ~ #else ~ #endif``
+
+   The ``#if`` line evaluates a constant integer expression(which may not include ``sizeof``\, casts or ``enum`` constants).
+   If the expression is non-zero, subsequent lines until an ``#endif`` or ``#elif`` or ``#else`` are included.
+      (The preprocessor statement ``#elif`` is line ``else-if``\.)
+   The expression defined in a ``#if <name>`` is 1 if the *<name>* has been defined, and 0 otherwise.
+
+   This sequence tests the name ``SYSTEM`` to decide which version of a header to include:
+
+      .. code-block:: c
+
+         #if SYSTEM == SYSV
+         	#define HDR "sysv.h"
+         #elif SYSTEM == BSD
+         	#define HDR "bsd.h"
+         #elif SYSTEM == MSDOS
+         	#define HDR "msdos.h"
+         #else
+         	#define HDR "default.h"
+         #endif
+         #include HDR
+
+   The ``#ifdef`` and ``#ifndef`` lines are specialized forms that test whether a name is defined.
+   The first example of ``#if`` above could have been written
+
+      .. code-block:: c
+
+          #ifndef HDR
+          #define HDR
+
+          /* content of hdr.h go here */
+
+          #endif
+
+CH05-Pointers and Arrays
+------------------------
