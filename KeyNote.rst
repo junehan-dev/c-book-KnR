@@ -253,3 +253,44 @@ CH04-Function and Program Structure
    So, ``paste(name, 1)`` creates the token ``name1``.
    The rules for nested uses of ``##`` are arcane.
 
+4.11.3-Conditional Inclusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   It is possible to control preprocessing itself with conditional statements that are evaluated during preprocessing.
+   This provides a way to include code selectively, depending on the value of conditions evaluated during compliation.
+
+   - ``#if ~ #else ~ #endif``
+
+   The ``#if`` line evaluates a constant integer expression(which may not include ``sizeof``\, casts or ``enum`` constants).
+   If the expression is non-zero, subsequent lines until an ``#endif`` or ``#elif`` or ``#else`` are included.
+      (The preprocessor statement ``#elif`` is line ``else-if``\.)
+   The expression defined in a ``#if <name>`` is 1 if the *<name>* has been defined, and 0 otherwise.
+
+   This sequence tests the name ``SYSTEM`` to decide which version of a header to include:
+
+      .. code-block:: c
+
+         #if SYSTEM == SYSV
+         	#define HDR "sysv.h"
+         #elif SYSTEM == BSD
+         	#define HDR "bsd.h"
+         #elif SYSTEM == MSDOS
+         	#define HDR "msdos.h"
+         #else
+         	#define HDR "default.h"
+         #endif
+         #include HDR
+
+   The ``#ifdef`` and ``#ifndef`` lines are specialized forms that test whether a name is defined.
+   The first example of ``#if`` above could have been written
+
+      .. code-block:: c
+
+          #ifndef HDR
+          #define HDR
+
+          /* content of hdr.h go here */
+
+          #endif
+
+CH05-Pointers and Arrays
+------------------------
