@@ -48,10 +48,10 @@ KeyNote from Chapters
 =====================
 
 CH02-Types, Operators, and Expressions
---------------------------------------
+======================================
 
 2.4-Declarations
-^^^^^^^^^^^^^^^^
+----------------
    Automatic variable
       They are initialized each time the function or block it is in is entered.
       *The initializer may be any expression.*
@@ -77,12 +77,12 @@ CH02-Types, Operators, and Expressions
       convert a "narrower" operand into a "wider" one without losing information.
 
 CH04-Function and Program Structure
------------------------------------
+===================================
    1. **C is designed for Program consists of many small functions.**
    #. **A Program may reside in one or more source files.**
 
 4.4-Scope Rules
-^^^^^^^^^^^^^^^
+---------------
    - How are Definitions written so that variables are properly declared during compilation?
    - How are declarations arranged so that all the pieces will be properly connected when the program is loaded?
    - How are declarations organized so there is only one copy?
@@ -95,13 +95,13 @@ CH04-Function and Program Structure
          - definition of that of external variable.
 
 4.5-Header Files
-^^^^^^^^^^^^^^^^
+----------------
    There is a tradeoff between that,
       1. *each file have access only to the information it needs for its jobs and,*
       2. *the practical reality that it is harder to maintain more header files.*
 
 4.6-Static variables
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 ``static`` keyword applies to...
    1. External(global) variable:
       That of ``static`` declaration **Limits the scope of that object to the rest of the source file being compiled.**
@@ -113,7 +113,7 @@ CH04-Function and Program Structure
       A function declared with static, **it's name is invisible outside of the file in which it is declared.**
 
 4.7-Register variables
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
    ``register`` declaration **just advice the compiler that variable need to be placed in machine registers.** 
    *(it can be ignored.)*
 
@@ -122,12 +122,12 @@ CH04-Function and Program Structure
       IMPOSIBLE to take address of register variable! even if variable is not in the register.
 
 4.8-Block structure
-^^^^^^^^^^^^^^^^^^^
+-------------------
    **C is not a block-structured language.**
       it just can have fashion of block-structure within loop while re-initializes the automatic variable.
 
 4.9-initialization
-^^^^^^^^^^^^^^^^^^
+------------------
    - ``extern`` and ``static`` variable are garanteed to be initialized to zero.
       1. initializer must be a constant expression.
       #. initialization is done once. *(before program begins execution)*
@@ -143,7 +143,7 @@ CH04-Function and Program Structure
       #. it will be error to have more than specified length.
 
 4.10-Recursion
-^^^^^^^^^^^^^^
+--------------
    - C functions may be used recursively;
       A function may call itself either directly or indrectly.
 
@@ -293,7 +293,8 @@ CH04-Function and Program Structure
           #endif
 
 CH05-Pointers and Arrays
-------------------------
+========================
+
    A pointer is a variable that contains the address of a variable.
    Pointers are much used in C, partly because,
 
@@ -310,3 +311,69 @@ CH05-Pointers and Arrays
 
    The main change in *ANSI C* is to make explicit the rules about how pointers can be manipulated, in effect mandating what good programmer already practice and good compliers already enforce.
    In addition, the type ``void *``\*(pointer to void)* replaces ``char *`` as the proper type for a generic pointers.
+
+5.1 Pointers and Addresses
+--------------------------
+
+   A typical machine has an array of consecutively numbered or addressed memory cells that may be manipulated individually or in contiguous groups.
+   One common situation is that any byte can be a ``char``\, a pair of one-byte cells can be treated as a short integer, and foue adjacent bytes from a ``long``\.
+
+   A pointer is a group of cells (often two or four) that can hold an address.
+   So, if ``c`` is a ``char`` and ``p`` is a pointer that points to it, we could represent the situation this way::
+
+      - ``c`` -> data ref 1byte character.
+      - ``p`` -> c itself.
+
+   The unary operator ``&`` gives the address of an object, so the statement:
+
+      ``p = &c;``
+
+   assigns the address of ``c`` to the variable ``p``\, and ``p`` is said to "point to" ``c``\.
+   The ``&`` operator only applies to objects in memory:
+      variables and array elements.
+   It **cannot** be applied to expressions, constants, or ``register`` variables.
+
+   The unary operator ``*`` is the *indirection* or *dereferencing* operator;
+      When applied to a pointer, it accesses the object the pointer points to.
+   Suppose that ``x`` and ``y`` are integers and ``ip`` is a pointer to ``int``\.
+   This artificial sequence shows how to declare a pointer and how to use ``&`` and ``*``\:
+
+      .. code-block:: c
+
+         int	x = 1, y = 2, z[10];
+         int	*ip;
+         
+         ip = &x;	// ip store ref to x.
+         y = *ip;	// y store 1.
+         *ip = 0;	// x store 0.
+         ip = &z[0];	// ip -> z[0].
+
+   The declaration of ``ip``\, is intended as mnemonic;
+      it says that the expression ``*ip`` is an ``int``\.
+   The syntax of the declaration for variable mimics the syntax of expression in which the variable might appear.
+   This reasoning applies to function declarations as well.
+   for example,
+
+      ``double	*dp, atof(char *);``
+         says that in an expression ``*dp`` and ``atof(s)`` have value of type double, and that argument of atof is pointer to ``char``\.
+
+   .. note::
+
+      The implication that a pointer is constrained to point to a particular kind of object:
+         Every pointer points to a specific data type.
+
+   .. note::
+
+      There is one exception:
+         a "pointer to ``void``\" is **used to hold any type of pointer but cannot be dereferenced itself.**
+
+   Finally, since pointers are variables, they can be used without dereferencing.
+   For example, if ``iq`` is another pointer to ``int``\.
+
+      ``iq = ip``
+         copies the contents of ``ip`` into ``iq``\, thus making ``iq`` point to whatever ``ip`` pointed to.
+
+
+5.2 Pointers and Function Arguments
+-----------------------------------
+
