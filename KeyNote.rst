@@ -48,10 +48,10 @@ KeyNote from Chapters
 =====================
 
 CH02-Types, Operators, and Expressions
---------------------------------------
+======================================
 
 2.4-Declarations
-^^^^^^^^^^^^^^^^
+----------------
    Automatic variable
       They are initialized each time the function or block it is in is entered.
       *The initializer may be any expression.*
@@ -77,12 +77,12 @@ CH02-Types, Operators, and Expressions
       convert a "narrower" operand into a "wider" one without losing information.
 
 CH04-Function and Program Structure
------------------------------------
+===================================
    1. **C is designed for Program consists of many small functions.**
    #. **A Program may reside in one or more source files.**
 
 4.4-Scope Rules
-^^^^^^^^^^^^^^^
+---------------
    - How are Definitions written so that variables are properly declared during compilation?
    - How are declarations arranged so that all the pieces will be properly connected when the program is loaded?
    - How are declarations organized so there is only one copy?
@@ -95,13 +95,13 @@ CH04-Function and Program Structure
          - definition of that of external variable.
 
 4.5-Header Files
-^^^^^^^^^^^^^^^^
+----------------
    There is a tradeoff between that,
       1. *each file have access only to the information it needs for its jobs and,*
       2. *the practical reality that it is harder to maintain more header files.*
 
 4.6-Static variables
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 ``static`` keyword applies to...
    1. External(global) variable:
       That of ``static`` declaration **Limits the scope of that object to the rest of the source file being compiled.**
@@ -113,7 +113,7 @@ CH04-Function and Program Structure
       A function declared with static, **it's name is invisible outside of the file in which it is declared.**
 
 4.7-Register variables
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
    ``register`` declaration **just advice the compiler that variable need to be placed in machine registers.** 
    *(it can be ignored.)*
 
@@ -122,12 +122,12 @@ CH04-Function and Program Structure
       IMPOSIBLE to take address of register variable! even if variable is not in the register.
 
 4.8-Block structure
-^^^^^^^^^^^^^^^^^^^
+-------------------
    **C is not a block-structured language.**
       it just can have fashion of block-structure within loop while re-initializes the automatic variable.
 
 4.9-initialization
-^^^^^^^^^^^^^^^^^^
+------------------
    - ``extern`` and ``static`` variable are garanteed to be initialized to zero.
       1. initializer must be a constant expression.
       #. initialization is done once. *(before program begins execution)*
@@ -143,7 +143,7 @@ CH04-Function and Program Structure
       #. it will be error to have more than specified length.
 
 4.10-Recursion
-^^^^^^^^^^^^^^
+--------------
    - C functions may be used recursively;
       A function may call itself either directly or indrectly.
 
@@ -293,7 +293,7 @@ CH04-Function and Program Structure
           #endif
 
 CH05-Pointers and Arrays
-------------------------
+========================
    A pointer is a variable that contains the address of a variable.
    Pointers are much used in C, partly because,
 
@@ -310,3 +310,7 @@ CH05-Pointers and Arrays
 
    The main change in *ANSI C* is to make explicit the rules about how pointers can be manipulated, in effect mandating what good programmer already practice and good compliers already enforce.
    In addition, the type ``void *``\*(pointer to void)* replaces ``char *`` as the proper type for a generic pointers.
+
+5.1 Pointers and Addresses
+--------------------------
+
