@@ -367,3 +367,13 @@ CH05-Pointers and Arrays
       There is one exception:
          a "pointer to ``void``\" is **used to hold any type of pointer but cannot be dereferenced itself.**
 
+   Finally, since pointers are variables, they can be used without dereferencing.
+   For example, if ``iq`` is another pointer to ``int``\.
+
+      ``iq = ip``
+         copies the contents of ``ip`` into ``iq``\, thus making ``iq`` point to whatever ``ip`` pointed to.
+
+
+5.2 Pointers and Function Arguments
+-----------------------------------
+
