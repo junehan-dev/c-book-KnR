@@ -7,7 +7,7 @@ ft_getint
    Fix it to push such a character back on the input.
 
    Signature
-      ``int	ft_getint(int *pn)``
+      ``int	ft_getint(int *pn, FILE *fd)``
 
    Description
       returns 0 on Success, return zero if not-numerable character found. 
