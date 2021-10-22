@@ -10,5 +10,6 @@ ft_getint
       ``int	ft_getint(int *pn)``
 
    Description
-      returns EOF on Success, return zero if not-numerable character found. 
+      returns 0 on Success, return zero if not-numerable character found. 
+      Internally use ``getc`` and ``ungetc`` to manager stream.
 
