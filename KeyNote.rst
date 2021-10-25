@@ -440,3 +440,26 @@ CH05-Pointers and Arrays
 
 5.3 Pointers and Arrays
 -----------------------
+   Any operation that can be achieved by array subscripting can also be done with pointers.
+   The pointer version will in general be **faster** but, at least to the uninitiated, somewhat harder to understand.
+
+   There is one difference between an array name and a pointer that must be kept in mind.
+
+      - Pointer is a variable, so ``pa = a`` and ``pa++`` is legal.
+      - But an array name is not a variable.
+         constructions like ``a = pa`` and ``a++`` are illegal.
+
+   When an array name is passed to a function, what is passed is the *location of the initial element*\.
+   Within the the callee function, this argument is a local variable, and so an array name parameter is a pointer, that is, a variable containing address.
+
+   As formal parameters in a function definition,
+
+      - ``char s*``
+      - ``char s[]`` *(PREFERED expression.)*
+         *(because,* **it says more explicitly that the parameter is a pointer**\*.)*
+
+   are equivalent.
+
+5.4 Address Arithmetic
+----------------------
+
