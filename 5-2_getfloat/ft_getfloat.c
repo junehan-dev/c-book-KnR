@@ -32,7 +32,7 @@ int	ft_getfloat(float *pn, FILE *fd)
 			*pn = 10 * *pn + (c - '0');
 
 		if (c == '.') {
-			float	div;
+			double	div;
 			div = 1;
 			while (isdigit((c = getc(fd)))) {
 				div *= 0.1;
