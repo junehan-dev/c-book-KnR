@@ -48,6 +48,5 @@ int		main(void)
 	printf("end : %p, to change :%p\n", allocp, old - 3);
 	assert(allocp == (old - 3));
 
-
 	return (0);
 }

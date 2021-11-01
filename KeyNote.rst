@@ -463,3 +463,48 @@ CH05-Pointers and Arrays
 5.4 Address Arithmetic
 ----------------------
 
+   .. code-block:: c
+
+      #define ALLOCIZE	100
+      static char	allocbuf[ALLOCSIZE];
+      static char	*allocp = allocbuf;
+
+      char	*alloc(int n) {
+      	allocp = (allocbuf + ALLOCSIZE - allocp) >= n ? allocp + n : allocp;
+      	return (allocp);
+      }
+
+      void	afree(char *p) {
+      	allocp = (p >= allocbuf && p (allocbuf + ALLOCSIZE)) ? p : allocp;
+      }
+
+- C guarantees that *zero* is never a valid address for data.
+   - So return value of zero can be used to signal an abnormal event, in this case, **no space to allocate.**
+- Pointers and integers are not interchangeable.
+   - Zero is the sole exception
+      - *the constant zero may be assigned to a pointer, and a pointer may be campared with the constant zero.*
+   - The symbolic constant ``NULL`` is often used in place of zero, as mnemonic to indicate more clearly that, "This is a special value for a pointer."
+- Pointers may be compared under certian circumstances: **if those are in same series of address**\, then they will work properly.
+   - One exception for, address of the first element past the end of an array cna be used in pointer arithmetic.
+- Pointer subtraction is also valid:
+
+   .. code-block:: c
+
+      int	strlen(char *s)
+      {
+      	char	*p = s;
+      
+      	while (*p != '\0')
+      		p++;
+      
+      	return (p - s);
+      }
+   - the number of characters in string could be too large to store in int.
+
+      - ``<stddef.h>`` defines a type ``ptrdiff_t`` that is large enough to handle singed diff of two pointers.
+      - however, (if with very cautious), we would use ``size_t`` for the return type of ``strlen`` **to match the stdlib version.**
+
+         - (``size_t`` is integer type return by ``sizeof`` operator.)
+   - All other pointer arithmatic is illegal.
+     - except for ``void *`` to assign a pointer of one type to another type of pointer without cast.
+
