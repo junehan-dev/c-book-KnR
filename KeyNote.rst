@@ -564,7 +564,7 @@ ie.strcmp
       }
 - My version of my_strcmp_
 
-   .. code-block::
+   .. code-block:: c
 
       int	strcmp(const char *s1, const char *s2)
       {
