@@ -505,6 +505,6 @@ CH05-Pointers and Arrays
       - however, (if with very cautious), we would use ``size_t`` for the return type of ``strlen`` **to match the stdlib version.**
 
          - (``size_t`` is integer type return by ``sizeof`` operator.)
-   - All other pointer arithmatic is illegal.
-     - except for ``void *`` to assign a pointer of one type to another type of pointer without cast.
+- All other pointer arithmatic is illegal.
+  - except for ``void *`` to assign a pointer of one type to another type of pointer without cast.
 
