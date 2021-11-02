@@ -36,13 +36,13 @@ PROGRAMS
 #. `4-12_itoa_recursive`_ : Recursion 
 #. `4-13_reverse_recursive`_ : Recursion
 #. `4-14_macro_swap`_: Macro
-#. `5-1_ft_getint`: Function Arguments
+#. `5-1_ft_getint`_: Function Arguments
    getint with retore wrong-input to fd
-#. `5-2_ft_getfloat`: Function Arguments
+#. `5-2_ft_getfloat`_: Function Arguments
    float version of getint.(keeps the same prototype with getint.)
-#. `5-3_ft_strcat`: String Pointers
+#. `5-3_ft_strcat`_: String Pointers
    concatnate strings with infinite positional args up to 64 characters max.
-#. `5-4_ft_strend`: String Pointers
+#. `5-4_ft_strend`_: String Pointers
    check is string ``dest`` does ends with ``src``\.
 
 .. _1-11~12_woudcount: ./1-11~12_woudcount
