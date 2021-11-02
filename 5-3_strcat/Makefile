@@ -8,7 +8,7 @@ NAME			= concat-strs.run
 all: $(NAME)
 
 $(NAME): $(OBJECT)
-	$(CC) $(CFLAGCS) srcs/strcat-test.c $^ -o $@
+	$(CC) $(CFLAGS) srcs/strcat-test.c $^ -o $@
 
 srcs/ft_strcat.o:
 	$(CC) $(CFLAGS) -c srcs/ft_strcat.c -o $@
