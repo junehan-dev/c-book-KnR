@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <assert.h>
 #include <stdio.h>
+#include "ft_strings.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void	single_test(const char *s1, const char *s2, size_t n)
 {
 	assert(ft_strncmp(s1, s2, n) ==	strncmp(s1, s2, n));

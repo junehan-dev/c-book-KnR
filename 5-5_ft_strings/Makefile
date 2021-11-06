@@ -23,9 +23,9 @@ srcs/ft_strncpy.o:
 
 .PHONY: test
 test:
-	$(CC) $(CFLAGS) srcs/tests/ft_t_strncat.c $(NAME) -o test1.out
-	$(CC) $(CFLAGS) srcs/tests/ft_t_strncmp.c $(NAME) -o test2.out
-	$(CC) srcs/tests/ft_t_strncpy.c $(NAME) -o test3.out
+	$(CC) $(CFLAGS) -Iincludes srcs/tests/ft_t_strncat.c $(NAME) -o test1.out
+	$(CC) $(CFLAGS) -Iincludes srcs/tests/ft_t_strncmp.c $(NAME) -o test2.out
+	$(CC) -Iincludes srcs/tests/ft_t_strncpy.c $(NAME) -o test3.out
 	./test1.out
 	/bin/rm test1.out
 	./test2.out

@@ -1,10 +1,9 @@
 #include <unistd.h>
 #include <assert.h>
 #include <stdio.h>
-
-char	*ft_strncpy(char *restrict dest, const char *restrict src, size_t n);
-
 #include <string.h>
+#include "ft_strings.h"
+
 void	test_strncpy(void)
 {
 	char	check[128] = "first data.";

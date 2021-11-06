@@ -1,10 +1,9 @@
 #include <unistd.h>
 #include <assert.h>
 #include <stdio.h>
-
-char	*ft_strncat(char *restrict dest, const char *restrict src, size_t n);
-
 #include <string.h>
+#include "ft_strings.h"
+
 void	test_strncat(void)
 {
 	char	check[128] = "first data.";
