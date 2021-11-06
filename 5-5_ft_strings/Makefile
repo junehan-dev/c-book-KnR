@@ -13,7 +13,7 @@ srcs/ft_strncat.o:
 
 .PHONY: test
 test:
-	$(CC) $(CFLAGS) srcs/test/ft_t_strncat.c srcs/ft_strncat.o -o test1.out
+	$(CC) $(CFLAGS) srcs/tests/ft_t_strncat.c srcs/ft_strncat.o -o test1.out
 	./test1.out
 	/bin/rm test1.out
 
