@@ -7,7 +7,11 @@ NAME			= ft_string.a
 .DEFAULT_GOAL	= all
 
 .PHONY: all
-all: $(OBJECTS)
+all: $(NAME)
+
+$(NAME): $(OBJECTS)
+	ar rcs $@ $^
+	ranlib $@
 
 srcs/ft_strncat.o:
 	$(CC) $(CFLAGS) -c srcs/ft_strncat.c -o $@
@@ -19,9 +23,9 @@ srcs/ft_strncpy.o:
 
 .PHONY: test
 test:
-	$(CC) $(CFLAGS) srcs/tests/ft_t_strncat.c srcs/ft_strncat.o -o test1.out
-	$(CC) $(CFLAGS) srcs/tests/ft_t_strncmp.c srcs/ft_strncmp.o -o test2.out
-	$(CC) srcs/tests/ft_t_strncpy.c srcs/ft_strncpy.o -o test3.out
+	$(CC) $(CFLAGS) srcs/tests/ft_t_strncat.c $(NAME) -o test1.out
+	$(CC) $(CFLAGS) srcs/tests/ft_t_strncmp.c $(NAME) -o test2.out
+	$(CC) srcs/tests/ft_t_strncpy.c $(NAME) -o test3.out
 	./test1.out
 	/bin/rm test1.out
 	./test2.out
@@ -29,6 +33,11 @@ test:
 	./test3.out
 	/bin/rm test3.out
 
+.PHONY: clean
 clean:
 	/bin/rm $(OBJECTS)
+	/bin/rm ./test*.out
 
+.PHONY: fclean
+fclean:
+	/bin/rm $(NAME)
