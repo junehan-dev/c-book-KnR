@@ -1,4 +1,4 @@
-Ponters and Function Arguments
+Pointers and Function Arguments
 ==============================
 
 ft_getint
