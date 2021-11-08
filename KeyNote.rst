@@ -48,10 +48,10 @@ KeyNote from Chapters
 =====================
 
 CH02-Types, Operators, and Expressions
---------------------------------------
+======================================
 
 2.4-Declarations
-^^^^^^^^^^^^^^^^
+----------------
    Automatic variable
       They are initialized each time the function or block it is in is entered.
       *The initializer may be any expression.*
@@ -77,12 +77,12 @@ CH02-Types, Operators, and Expressions
       convert a "narrower" operand into a "wider" one without losing information.
 
 CH04-Function and Program Structure
------------------------------------
+===================================
    1. **C is designed for Program consists of many small functions.**
    #. **A Program may reside in one or more source files.**
 
 4.4-Scope Rules
-^^^^^^^^^^^^^^^
+---------------
    - How are Definitions written so that variables are properly declared during compilation?
    - How are declarations arranged so that all the pieces will be properly connected when the program is loaded?
    - How are declarations organized so there is only one copy?
@@ -95,13 +95,13 @@ CH04-Function and Program Structure
          - definition of that of external variable.
 
 4.5-Header Files
-^^^^^^^^^^^^^^^^
+----------------
    There is a tradeoff between that,
       1. *each file have access only to the information it needs for its jobs and,*
       2. *the practical reality that it is harder to maintain more header files.*
 
 4.6-Static variables
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 ``static`` keyword applies to...
    1. External(global) variable:
       That of ``static`` declaration **Limits the scope of that object to the rest of the source file being compiled.**
@@ -113,7 +113,7 @@ CH04-Function and Program Structure
       A function declared with static, **it's name is invisible outside of the file in which it is declared.**
 
 4.7-Register variables
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
    ``register`` declaration **just advice the compiler that variable need to be placed in machine registers.** 
    *(it can be ignored.)*
 
@@ -122,12 +122,12 @@ CH04-Function and Program Structure
       IMPOSIBLE to take address of register variable! even if variable is not in the register.
 
 4.8-Block structure
-^^^^^^^^^^^^^^^^^^^
+-------------------
    **C is not a block-structured language.**
       it just can have fashion of block-structure within loop while re-initializes the automatic variable.
 
 4.9-initialization
-^^^^^^^^^^^^^^^^^^
+------------------
    - ``extern`` and ``static`` variable are garanteed to be initialized to zero.
       1. initializer must be a constant expression.
       #. initialization is done once. *(before program begins execution)*
@@ -143,7 +143,7 @@ CH04-Function and Program Structure
       #. it will be error to have more than specified length.
 
 4.10-Recursion
-^^^^^^^^^^^^^^
+--------------
    - C functions may be used recursively;
       A function may call itself either directly or indrectly.
 
@@ -293,4 +293,321 @@ CH04-Function and Program Structure
           #endif
 
 CH05-Pointers and Arrays
-------------------------
+========================
+
+   A pointer is a variable that contains the address of a variable.
+   Pointers are much used in C, partly because,
+
+      1. They are sometimes the only way to express a computation.
+      #. They usually lead to more compact and efficient code than can be obtained in other ways.
+
+   Pointers and arrays are closely related;
+   (this chapter also explores this relation ship and shows how to exploit it.)
+
+   Pointers have been lumped with the goto statement as a marvelous way to create *impossible-to-understand programs.*
+   This is certainly true when they are used carelessly, and it is easy to create pointers that point somewhere unexpected.
+   However, with discipline(well-trained way to use), Pointers can also be used to achieve clarity and simplicity.
+   This is aspect that we will try to illustrate.
+
+   The main change in *ANSI C* is to make explicit the rules about how pointers can be manipulated, in effect mandating what good programmer already practice and good compliers already enforce.
+   In addition, the type ``void *``\*(pointer to void)* replaces ``char *`` as the proper type for a generic pointers.
+
+5.1 Pointers and Addresses
+--------------------------
+
+   A typical machine has an array of consecutively numbered or addressed memory cells that may be manipulated individually or in contiguous groups.
+   One common situation is that any byte can be a ``char``\, a pair of one-byte cells can be treated as a short integer, and foue adjacent bytes from a ``long``\.
+
+   A pointer is a group of cells (often two or four) that can hold an address.
+   So, if ``c`` is a ``char`` and ``p`` is a pointer that points to it, we could represent the situation this way::
+
+      - ``c`` -> data ref 1byte character.
+      - ``p`` -> c itself.
+
+   The unary operator ``&`` gives the address of an object, so the statement:
+
+      ``p = &c;``
+
+   assigns the address of ``c`` to the variable ``p``\, and ``p`` is said to "point to" ``c``\.
+   The ``&`` operator only applies to objects in memory:
+      variables and array elements.
+   It **cannot** be applied to expressions, constants, or ``register`` variables.
+
+   The unary operator ``*`` is the *indirection* or *dereferencing* operator;
+      When applied to a pointer, it accesses the object the pointer points to.
+   Suppose that ``x`` and ``y`` are integers and ``ip`` is a pointer to ``int``\.
+   This artificial sequence shows how to declare a pointer and how to use ``&`` and ``*``\:
+
+      .. code-block:: c
+
+         int	x = 1, y = 2, z[10];
+         int	*ip;
+         
+         ip = &x;	// ip store ref to x.
+         y = *ip;	// y store 1.
+         *ip = 0;	// x store 0.
+         ip = &z[0];	// ip -> z[0].
+
+   The declaration of ``ip``\, is intended as mnemonic;
+      it says that the expression ``*ip`` is an ``int``\.
+   The syntax of the declaration for variable mimics the syntax of expression in which the variable might appear.
+   This reasoning applies to function declarations as well.
+   for example,
+
+      ``double	*dp, atof(char *);``
+         says that in an expression ``*dp`` and ``atof(s)`` have value of type double, and that argument of atof is pointer to ``char``\.
+
+   .. note::
+
+      The implication that a pointer is constrained to point to a particular kind of object:
+         Every pointer points to a specific data type.
+
+   .. note::
+
+      There is one exception:
+         a "pointer to ``void``\" is **used to hold any type of pointer but cannot be dereferenced itself.**
+
+   Finally, since pointers are variables, they can be used without dereferencing.
+   For example, if ``iq`` is another pointer to ``int``\.
+
+      ``iq = ip``
+         copies the contents of ``ip`` into ``iq``\, thus making ``iq`` point to whatever ``ip`` pointed to.
+
+
+5.2 Pointers and Function Arguments
+-----------------------------------
+   Since C passes arguments to functions by value, there is no direct way for the called function to alter a variable in the calling fuction.
+   For instance, a sorting routine might exchange two out-of-order arguments with a fuction called ``swap``\.
+   It is not enough to write ``swap(a, b);`` where the ``swap`` function is defined as
+      .. code-block:: c
+
+         void swap(int x, int y) /*WRONG*/
+         {
+         	int	temp;
+
+         	temp = x;
+         	x = y;
+         	y = temp;
+         }
+
+   Because of call by value, ``swap`` can't affect the arguments ``a`` and ``b`` in the routine that called it.
+   The fuction above swaps **copies** of ``a`` and ``b``\.
+   The way to obtain the desired effect is for the calling program to pass *pointers* to the values to be changed:
+
+      - ``swap(a, b);`` -> ``swap(&a, &b);``
+      - ``void swap(int, int);`` -> ``void swap(int *, int *);``
+
+   Pointer arguments enable a function to access and change objects in the function that called it.
+
+   As an example, consider a function ``getint`` that performs free-format input conversion by breaking a stream of characters into integer values, one integer per call.
+
+      - ``getint`` has to return the value it found and also signal end of file when there is no more input.
+      - These values have to be passed back by separate paths, for no matter what value is used for ``EOF``\, that could also be the value of an input integer.
+      - One solution is to have ``getint`` return the end of file status as its function value, while using a pointer argument to store the converted integer back in the calling function.
+      - This is the scheme used by ``scanf`` as well.
+
+   Our version of ``getint`` returns ``EOF`` for end of file, zero if the next input is not a number, and a positive value if the input contains a valid number.
+
+      .. code-block:: c
+
+         int	getch(void);
+         void	ungetch(int);
+
+         /* getint: get next int from input into *pn */
+         int	getint(int *pn)
+         {
+         	int	c, sign;
+          
+         	while (isspace(c = getch()));
+         	if (!isdigit(c) && c != EOF && c != '+' && c != '-') {
+         		ungetch(c);
+         		return (0);
+         	}
+
+         	sign = (c == '-') ? -1 : 1;
+         	for (*pn = 0; isdigit(c); c = getch())
+         		*pn = 10 * *pn + (c - '0');
+
+         	*pn *= sign;
+         	if (c != EOF)
+         		ungetch(c);
+
+         	return (c);
+         }
+ 
+   Throughout ``getint``\, ``*pn`` is used as an ordinary ``int`` variable.
+   We have also used ``getch`` and ``ungetch`` so the one extra character that must be read can be pushed back onto the input
+
+5.3 Pointers and Arrays
+-----------------------
+   Any operation that can be achieved by array subscripting can also be done with pointers.
+   The pointer version will in general be **faster** but, at least to the uninitiated, somewhat harder to understand.
+
+   There is one difference between an array name and a pointer that must be kept in mind.
+
+      - Pointer is a variable, so ``pa = a`` and ``pa++`` is legal.
+      - But an array name is not a variable.
+         constructions like ``a = pa`` and ``a++`` are illegal.
+
+   When an array name is passed to a function, what is passed is the *location of the initial element*\.
+   Within the the callee function, this argument is a local variable, and so an array name parameter is a pointer, that is, a variable containing address.
+
+   As formal parameters in a function definition,
+
+      - ``char s*``
+      - ``char s[]`` *(PREFERED expression.)*
+         *(because,* **it says more explicitly that the parameter is a pointer**\*.)*
+
+   are equivalent.
+
+5.4 Address Arithmetic
+----------------------
+
+   .. code-block:: c
+
+      #define ALLOCIZE	100
+      static char	allocbuf[ALLOCSIZE];
+      static char	*allocp = allocbuf;
+
+      char	*alloc(int n) {
+      	allocp = (allocbuf + ALLOCSIZE - allocp) >= n ? allocp + n : allocp;
+      	return (allocp);
+      }
+
+      void	afree(char *p) {
+      	allocp = (p >= allocbuf && p (allocbuf + ALLOCSIZE)) ? p : allocp;
+      }
+
+- C guarantees that *zero* is never a valid address for data.
+   - So return value of zero can be used to signal an abnormal event, in this case, **no space to allocate.**
+- Pointers and integers are not interchangeable.
+   - Zero is the sole exception
+      - *the constant zero may be assigned to a pointer, and a pointer may be campared with the constant zero.*
+   - The symbolic constant ``NULL`` is often used in place of zero, as mnemonic to indicate more clearly that, "This is a special value for a pointer."
+- Pointers may be compared under certian circumstances: **if those are in same series of address**\, then they will work properly.
+   - One exception for, address of the first element past the end of an array cna be used in pointer arithmetic.
+- Pointer subtraction is also valid:
+
+   .. code-block:: c
+
+      int	strlen(char *s)
+      {
+      	char	*p = s;
+      
+      	while (*p != '\0')
+      		p++;
+      
+      	return (p - s);
+      }
+   - the number of characters in string could be too large to store in int.
+
+      - ``<stddef.h>`` defines a type ``ptrdiff_t`` that is large enough to handle singed diff of two pointers.
+      - however, (if with very cautious), we would use ``size_t`` for the return type of ``strlen`` **to match the stdlib version.**
+
+         - (``size_t`` is integer type return by ``sizeof`` operator.)
+- All other pointer arithmatic is illegal.
+  - except for ``void *`` to assign a pointer of one type to another type of pointer without cast.
+
+5.5 Character-Pointers and Functions
+------------------------------------
+
+- string const, ``"I am a string"`` is array of characters with internally terminated with ``'\0'``\.
+
+   - it is to find the end of array by program.
+
+      - length in storage is thus one more than it seen.
+- ``printf("str");`` what is passed as argument to printf is pointer to its first element of string array.
+
+   - That is, **a string const is accesed by a pointer to its first element.**
+- ``char amessage[] = "now is the time";`` is an array generated by ``section .text``
+   - array is big enough to hold the sequence of characters + Null-termination.
+   - it is on ``.text`` section, so it is generated on while the text segment is being processing.
+
+- ``char *pmessage = "now is the time";`` is a pointer to data at ``section .data``
+   - is initialized to point a string constant.
+   - "now is the time" at this moment is stored to ``.data`` section at early level of compile, so data lives from the first not by processing the code.
+   - by processing, ``*pmessage`` variable is generated to a stack and named. it assigns a pointer to constant string at ``.data``
+
+
+ie.strcpy
+^^^^^^^^^
+
+   .. code-block:: c
+
+      void	strcpy(char *dest, char *src)
+      {
+      	while (*s++ = *t++)
+      		;
+      }
+
+   - Although this may seem cryptic at first sight but,
+
+      1. the notational conveniene is considerable.
+      #. and the idiom should be mastered because you will see it frequently in C programs.
+
+     *Think of Power and performance of c and why we use like this?*
+
+ie.strcmp
+^^^^^^^^^
+- pointer version of strcmp:
+
+   .. code-block:: c
+
+      int	strcmp(char *s1, char *s2)
+      {
+      	for (; *s1 == *s2; s1++, s2++) {
+      		if (*s1 == '\0')
+      			return (0);
+      	}
+      
+      	return (*s1 - *s2);
+      }
+- My version of my_strcmp_
+
+   .. code-block:: c
+
+      int	strcmp(const char *s1, const char *s2)
+      {
+      	if (*s1 && *s1 == *s2)
+      		while (*++s1 == *++s2 && *s1)
+      			;
+      
+      	return (*s1 - *s2);
+      }
+   .. _my_strcmp: ./examples/5-5_strcmp.c
+
+
+5.11 Pointers to Functions
+--------------------------
+
+- C에서 함수 그 자체는 변수가 아니다.
+- 함수에 대한 포인터를 정의하는 것이 가능하다.
+
+   - 그것은 assginable하며,
+   - placed in arrays,
+   - passed to functions,
+   - returned by functions,
+  등의 특성을 지니어, 일급함수의 성격을 띈다.
+
+- 함수 포인터 정의, 함수 포인터화 예시
+
+   .. code-block:: c
+
+      void	qsort(void **pts, int left, int right, int (*comp)(void *, void *));
+      
+      int main(void) {
+      	/*
+      		Do something...
+      	*/
+      	qsort((void **) line_arr, 0, end - 1,
+      		(int (*)(void *, void *))strcmp
+      	);
+      }
+
+   - ``qsort``\의 호출에서, strcmp는 함수의 주소가 된다.
+
+      - strcmp는 ``int (*)(const char *, const char *)``\의 선언을 가지고 있지만, ``(void *)``\는 strcmp를 바꾸는 것이 아니라, caller가 인식 가능하도록 해주는 역할이다.
+      - *generic pointer type,* ``void *``\라 불려지며, 포인터 arguments에 사용된다.
+
+      - ``void *``\로 변하는 것은 어떤 것이든 가능하며, 그 포인터를 참조하여 직접 값을 사용하는 부는 그것이 char이 저장된 것인지, int가 저장된 것인지를 알아야 하지만, 값을 전달하는 입장에서는, 포인터를 전달하고, 받는 쪽에서 그것이 8byte길이의 포인터라는 것으로 값 전달과 수용에는 문제가 일어나지 않는다.
+   - Argument로 전달되는 함수는 함수포인터임을 호출 함수의 parameter에 명시되어 있으므로, ``&strcmp``\의 처리는 필요한지 않다. 함수는 그 존재 자체로 값이 아니라, 포인터.
