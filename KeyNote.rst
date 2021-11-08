@@ -576,3 +576,38 @@ ie.strcmp
       }
    .. _my_strcmp: ./examples/5-5_strcmp.c
 
+
+5.11 Pointers to Functions
+--------------------------
+
+- C에서 함수 그 자체는 변수가 아니다.
+- 함수에 대한 포인터를 정의하는 것이 가능하다.
+
+   - 그것은 assginable하며,
+   - placed in arrays,
+   - passed to functions,
+   - returned by functions,
+  등의 특성을 지니어, 일급함수의 성격을 띈다.
+
+- 함수 포인터 정의, 함수 포인터화 예시
+
+   .. code-block:: c
+
+      void	qsort(void **pts, int left, int right, int (*comp)(void *, void *));
+      
+      int main(void) {
+      	/*
+      		Do something...
+      	*/
+      	qsort((void **) line_arr, 0, end - 1,
+      		(int (*)(void *, void *))strcmp
+      	);
+      }
+
+   - ``qsort``\의 호출에서, strcmp는 함수의 주소가 된다.
+
+      - strcmp는 ``int (*)(const char *, const char *)``\의 선언을 가지고 있지만, ``(void *)``\는 strcmp를 바꾸는 것이 아니라, caller가 인식 가능하도록 해주는 역할이다.
+      - *generic pointer type,* ``void *``\라 불려지며, 포인터 arguments에 사용된다.
+
+      - ``void *``\로 변하는 것은 어떤 것이든 가능하며, 그 포인터를 참조하여 직접 값을 사용하는 부는 그것이 char이 저장된 것인지, int가 저장된 것인지를 알아야 하지만, 값을 전달하는 입장에서는, 포인터를 전달하고, 받는 쪽에서 그것이 8byte길이의 포인터라는 것으로 값 전달과 수용에는 문제가 일어나지 않는다.
+   - Argument로 전달되는 함수는 함수포인터임을 호출 함수의 parameter에 명시되어 있으므로, ``&strcmp``\의 처리는 필요한지 않다. 함수는 그 존재 자체로 값이 아니라, 포인터.
